@@ -10,90 +10,120 @@ const TEA_DATA = [
     id: 1, name: 'Dragon Well (Longjing)', chinese: '龙井', category: 'Green',
     region: 'Hangzhou, Zhejiang', temp: 80, steepTime: '60-90s', gramsper100ml: 3,
     flavorNotes: ['chestnut', 'sweet', 'vegetal'],
+    processing: 'Pan-fired in a wok to halt oxidation',
+    brewingVessel: 'Glass cup',
     funFact: 'Dragon Well is pan-fired by hand in a wok, and master tea makers can judge the temperature by touching the side of the wok with their bare hands.'
   },
   {
     id: 2, name: 'Bi Luo Chun', chinese: '碧螺春', category: 'Green',
     region: 'Suzhou, Jiangsu', temp: 75, steepTime: '45-60s', gramsper100ml: 3,
     flavorNotes: ['fruity', 'floral', 'fresh'],
+    processing: 'Hand-rolled and pan-fired',
+    brewingVessel: 'Glass cup',
     funFact: 'Bi Luo Chun is grown among fruit trees, which gives the tea its distinctive fruity aroma. It takes over 80,000 hand-picked buds to make just one kilogram.'
   },
   {
     id: 3, name: 'Tie Guan Yin', chinese: '铁观音', category: 'Oolong',
     region: 'Anxi, Fujian', temp: 95, steepTime: '30-45s', gramsper100ml: 7,
     flavorNotes: ['orchid', 'creamy', 'toasty'],
+    processing: 'Partially oxidized, then rolled and roasted',
+    brewingVessel: 'Gaiwan',
     funFact: 'Named after the Iron Goddess of Mercy (Guanyin), legend says a poor farmer found a withered tea plant behind her temple and nursed it back to health.'
   },
   {
     id: 4, name: 'Da Hong Pao', chinese: '大红袍', category: 'Oolong',
     region: 'Wuyi Mountains, Fujian', temp: 95, steepTime: '30-45s', gramsper100ml: 7,
     flavorNotes: ['mineral', 'roasted', 'caramel'],
+    processing: 'Heavy roasting after partial oxidation',
+    brewingVessel: 'Yixing teapot',
     funFact: 'The original Da Hong Pao mother trees are over 350 years old. In 2005, 20 grams sold for approximately $28,000, making it the most expensive tea in the world.'
   },
   {
     id: 5, name: 'Dong Ding Oolong', chinese: '冻顶乌龙', category: 'Oolong',
     region: 'Lugu, Nantou, Taiwan', temp: 90, steepTime: '45-60s', gramsper100ml: 6,
     flavorNotes: ['buttery', 'floral', 'honey'],
+    processing: 'Medium oxidation with light roasting',
+    brewingVessel: 'Gaiwan',
     funFact: 'Dong Ding means "Frozen Summit" — the original tea plants were brought from Wuyi Mountains to Taiwan in the 1800s by a scholar who passed his imperial exams.'
   },
   {
     id: 6, name: 'Keemun (Qimen)', chinese: '祁门红茶', category: 'Black',
     region: 'Qimen, Anhui', temp: 90, steepTime: '60-90s', gramsper100ml: 4,
     flavorNotes: ['cocoa', 'wine', 'smoky'],
+    processing: 'Fully oxidized and slow-dried',
+    brewingVessel: 'Gaiwan',
     funFact: 'Keemun was once a staple of English Breakfast blends. Queen Elizabeth II reportedly enjoyed Keemun tea as part of her daily routine.'
   },
   {
     id: 7, name: 'Lapsang Souchong', chinese: '正山小种', category: 'Black',
     region: 'Wuyi Mountains, Fujian', temp: 95, steepTime: '60-90s', gramsper100ml: 4,
     flavorNotes: ['pine smoke', 'longan', 'bold'],
+    processing: 'Smoke-dried over pinewood fires',
+    brewingVessel: 'Yixing teapot',
     funFact: 'Considered the first black tea ever produced. Legend says soldiers camped in a tea factory during the Ming Dynasty, delaying processing. Workers dried leaves over pine fires to save them.'
   },
   {
     id: 8, name: 'Dian Hong', chinese: '滇红', category: 'Black',
     region: 'Yunnan', temp: 90, steepTime: '60-90s', gramsper100ml: 4,
     flavorNotes: ['malty', 'pepper', 'sweet potato'],
+    processing: 'Fully oxidized from large-leaf cultivar',
+    brewingVessel: 'Gaiwan',
     funFact: 'Dian Hong is made from large-leaf Yunnan tea trees, some of which are over 1,000 years old. The golden buds create a naturally sweet, smooth cup.'
   },
   {
     id: 9, name: 'Silver Needle', chinese: '白毫银针', category: 'White',
     region: 'Fuding, Fujian', temp: 80, steepTime: '90-120s', gramsper100ml: 4,
     flavorNotes: ['melon', 'hay', 'delicate'],
+    processing: 'Withered and sun-dried with minimal handling',
+    brewingVessel: 'Glass cup',
     funFact: 'Silver Needle is made only from unopened buds covered in fine white hairs. It can only be harvested during a few days in early spring under strict weather conditions.'
   },
   {
     id: 10, name: 'White Peony', chinese: '白牡丹', category: 'White',
     region: 'Fuding, Fujian', temp: 85, steepTime: '60-90s', gramsper100ml: 4,
     flavorNotes: ['peony', 'nutty', 'fresh'],
+    processing: 'Withered and air-dried naturally',
+    brewingVessel: 'Gaiwan',
     funFact: 'White Peony uses one bud and two leaves, giving it more body than Silver Needle. Like fine wine, high-quality white tea improves with age.'
   },
   {
     id: 11, name: 'Sheng Pu-erh (Raw)', chinese: '生普洱', category: 'Pu-erh',
     region: 'Yunnan', temp: 95, steepTime: '15-30s', gramsper100ml: 7,
     flavorNotes: ['astringent', 'floral', 'evolving'],
+    processing: 'Sun-dried and naturally aged over years',
+    brewingVessel: 'Yixing teapot',
     funFact: 'Sheng Pu-erh is a living tea that ages and ferments over decades. Some cakes from the 1950s sell for over $100,000. The flavor transforms completely over time.'
   },
   {
     id: 12, name: 'Shu Pu-erh (Ripe)', chinese: '熟普洱', category: 'Pu-erh',
     region: 'Yunnan', temp: 100, steepTime: '15-30s', gramsper100ml: 7,
     flavorNotes: ['earthy', 'chocolate', 'smooth'],
+    processing: 'Wet-piled (wo dui) for accelerated fermentation',
+    brewingVessel: 'Yixing teapot',
     funFact: 'Shu Pu-erh was invented in 1973 using a technique called "wet piling" to accelerate fermentation, simulating decades of aging in just 45-60 days.'
   },
   {
     id: 13, name: 'Jun Shan Yin Zhen', chinese: '君山银针', category: 'Yellow',
     region: 'Junshan Island, Hunan', temp: 80, steepTime: '60-90s', gramsper100ml: 3,
     flavorNotes: ['mellow', 'sweet corn', 'smooth'],
+    processing: 'Sealed yellowing (men huang) after pan-firing',
+    brewingVessel: 'Glass cup',
     funFact: 'Yellow tea undergoes a unique "sealed yellowing" step where damp leaves are wrapped in cloth. Jun Shan Yin Zhen was tribute tea for Chinese emperors.'
   },
   {
     id: 14, name: 'Jasmine Pearl', chinese: '茉莉龙珠', category: 'Scented',
     region: 'Fuzhou, Fujian', temp: 85, steepTime: '60-90s', gramsper100ml: 4,
     flavorNotes: ['jasmine', 'sweet', 'round'],
+    processing: 'Green tea base scented with fresh jasmine flowers',
+    brewingVessel: 'Gaiwan',
     funFact: 'Each pearl is hand-rolled from two leaves and a bud, then scented with fresh jasmine flowers up to seven times. The flowers are removed after each scenting.'
   },
   {
     id: 15, name: 'Osmanthus Oolong', chinese: '桂花乌龙', category: 'Scented',
     region: 'Fujian / Taiwan', temp: 90, steepTime: '45-60s', gramsper100ml: 5,
     flavorNotes: ['osmanthus', 'peach', 'honeyed'],
+    processing: 'Oolong base blended with osmanthus flowers',
+    brewingVessel: 'Gaiwan',
     funFact: 'Osmanthus flowers bloom for only about two weeks in autumn. The tiny golden flowers are mixed with oolong tea to create this fragrant blend prized since the Tang Dynasty.'
   }
 ];
@@ -370,9 +400,26 @@ function TitleScreen({ onNavigate }) {
 // SECTION 5: TEA QUIZ
 // ═══════════════════════════════════════════════════════════
 
+const SAVE_KEY = 'emmas-tea-house-save';
+
+function loadSave() {
+  try {
+    const saved = localStorage.getItem(SAVE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
+function writeSave(data) {
+  try {
+    const existing = loadSave() || {};
+    localStorage.setItem(SAVE_KEY, JSON.stringify({ ...existing, ...data }));
+  } catch (e) { /* ignore */ }
+}
+
 function generateQuestions(count = 10) {
   const questions = [];
-  const types = ['category', 'temperature', 'region'];
+  const types = ['category', 'temperature', 'region', 'steepTime', 'leafAmount', 'processing', 'vessel', 'flavorMatch'];
 
   for (let i = 0; i < count; i++) {
     const type = types[Math.floor(Math.random() * types.length)];
@@ -403,7 +450,7 @@ function generateQuestions(count = 10) {
         correctIndex: choices.indexOf(`${tea.temp}°C`),
         explanation: `${tea.name} brews best at ${tea.temp}°C. ${tea.category} teas generally need ${tea.temp >= 95 ? 'hotter' : tea.temp >= 85 ? 'moderate' : 'cooler'} water.`,
       });
-    } else {
+    } else if (type === 'region') {
       const wrongTeas = TEA_DATA.filter(t => t.id !== tea.id).sort(() => Math.random() - 0.5).slice(0, 3);
       const choices = [...wrongTeas.map(t => t.name), tea.name].sort(() => Math.random() - 0.5);
       questions.push({
@@ -412,6 +459,64 @@ function generateQuestions(count = 10) {
         choices,
         correctIndex: choices.indexOf(tea.name),
         explanation: `${tea.name} (${tea.chinese}) comes from ${tea.region}. It's known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
+      });
+    } else if (type === 'steepTime') {
+      const allTimes = [...new Set(TEA_DATA.map(t => t.steepTime))];
+      const wrongTimes = allTimes.filter(t => t !== tea.steepTime).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongTimes, tea.steepTime].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `How long should you steep ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(tea.steepTime),
+        explanation: `${tea.name} should be steeped for ${tea.steepTime}. ${tea.category} teas typically need ${tea.steepTime.startsWith('15') ? 'very short' : tea.steepTime.startsWith('90') ? 'longer' : 'moderate'} steeping times.`,
+      });
+    } else if (type === 'leafAmount') {
+      const allGrams = [...new Set(TEA_DATA.map(t => t.gramsper100ml))];
+      const wrongGrams = allGrams.filter(g => g !== tea.gramsper100ml).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongGrams, tea.gramsper100ml]
+        .map(g => `${g}g per 100ml`)
+        .sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `How many grams per 100ml is recommended for ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(`${tea.gramsper100ml}g per 100ml`),
+        explanation: `${tea.name} uses ${tea.gramsper100ml}g per 100ml. ${tea.gramsper100ml >= 7 ? 'Dense rolled teas like oolongs and pu-erh use more leaf.' : 'Delicate teas use less leaf to avoid bitterness.'}`,
+      });
+    } else if (type === 'processing') {
+      const wrongProcessing = TEA_DATA.filter(t => t.processing !== tea.processing)
+        .sort(() => Math.random() - 0.5).slice(0, 3).map(t => t.processing);
+      const choices = [...wrongProcessing, tea.processing].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `What processing method is used to make ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(tea.processing),
+        explanation: `${tea.name} is made by: ${tea.processing}. This is characteristic of ${tea.category} teas.`,
+      });
+    } else if (type === 'vessel') {
+      const vessels = ['Gaiwan', 'Yixing teapot', 'Glass cup'];
+      const wrongVessels = vessels.filter(v => v !== tea.brewingVessel);
+      const choices = [...wrongVessels, tea.brewingVessel].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `What's the best vessel for brewing ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(tea.brewingVessel),
+        explanation: `${tea.name} is best brewed in a ${tea.brewingVessel}. ${tea.brewingVessel === 'Glass cup' ? 'Glass lets you appreciate the leaf shape and color.' : tea.brewingVessel === 'Yixing teapot' ? 'Yixing clay absorbs flavor and enhances bold teas.' : 'The gaiwan is versatile and great for most teas.'}`,
+      });
+    } else if (type === 'flavorMatch') {
+      const correctFlavor = tea.flavorNotes[Math.floor(Math.random() * tea.flavorNotes.length)];
+      const allFlavors = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
+      const wrongFlavors = [...new Set(allFlavors)].sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongFlavors, correctFlavor].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `Which flavor note is associated with ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(correctFlavor),
+        explanation: `${tea.name} is known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
       });
     }
   }
@@ -429,7 +534,13 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
   const [questions, setQuestions] = useState(() => generateQuestions(10));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [totalCorrect, setTotalCorrect] = useState(0);
+  const [totalCorrect, setTotalCorrect] = useState(() => {
+    try {
+      const saved = localStorage.getItem(SAVE_KEY);
+      if (saved) return JSON.parse(saved).totalCorrect || 0;
+    } catch (e) { /* ignore */ }
+    return 0;
+  });
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -437,7 +548,11 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
   const [emmaMsg, setEmmaMsg] = useState("Let's test your tea knowledge! Pick the correct answer.");
   const [petBounce, setPetBounce] = useState(false);
   const [quizDone, setQuizDone] = useState(false);
-  const [prevLevel, setPrevLevel] = useState(() => getLevel(0));
+  const [prevLevel, setPrevLevel] = useState(() => getLevel(totalCorrect));
+
+  useEffect(() => {
+    writeSave({ totalCorrect });
+  }, [totalCorrect]);
 
   const question = questions[currentIndex];
 
@@ -774,7 +889,14 @@ function TeaCollection({ onBack, discoveredTeas }) {
 
 export default function App() {
   const [screen, setScreen] = useState('title');
-  const [discoveredTeas, setDiscoveredTeas] = useState([]);
+  const [discoveredTeas, setDiscoveredTeas] = useState(() => {
+    const saved = loadSave();
+    return Array.isArray(saved?.discoveredTeas) ? saved.discoveredTeas : [];
+  });
+
+  useEffect(() => {
+    writeSave({ discoveredTeas });
+  }, [discoveredTeas]);
 
   const handleDiscoverTea = useCallback((teaId) => {
     setDiscoveredTeas(prev => prev.includes(teaId) ? prev : [...prev, teaId]);
