@@ -65,3 +65,49 @@
 .animate-blink {
   animation: blink 3s infinite;
 }
+
+@keyframes steamFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-12px) scale(1.5); opacity: 0; }
+}
+
+@keyframes petBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pourWater {
+  0% { height: 0; opacity: 0; }
+  20% { opacity: 1; }
+  100% { height: 20px; opacity: 1; }
+}
+
+@keyframes teaColorFade {
+  0% { opacity: 0.1; }
+  100% { opacity: 1; }
+}
+
+.animate-steam-float {
+  animation: steamFloat 1.5s ease-in-out infinite;
+}
+
+.animate-pet-bounce {
+  animation: petBounce 0.5s ease-in-out;
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+.animate-pour {
+  animation: pourWater 0.8s ease-out forwards;
+}
+
+.animate-tea-fade {
+  animation: teaColorFade 2s ease-in forwards;
+}

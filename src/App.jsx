@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { ArrowLeft, Lock, Star, Trophy, Heart, BookOpen, Coffee, Flame, Droplets, Timer, ChevronRight, Check, X } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════
@@ -175,58 +175,162 @@ const EMMA_MESSAGES = {
 // SECTION 2: PIXEL ART SPRITES & COMPONENTS
 // ═══════════════════════════════════════════════════════════
 
-const E = null; // transparent
+const _ = null; // transparent
+
+// Emma — Tea Guide Outfit (16x28, red Chinese robe with gold trim, cream beanie)
+const B='#D4C5A9',Bd='#B8AA8E',H='#7B4B2A',Hd='#5C3A1F',SK='#FDDBB8',Sp='#F0B8A0',
+      EY='#3B7A57',MO='#D4736A',R='#8B2500',Rd='#6B1C00',G='#DAA520',Bk='#1A1A1A';
 const EMMA_SPRITE = [
-  [E,E,E,E,E,'#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9',E,E,E,E,E],
-  [E,E,E,E,'#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9',E,E,E,E],
-  [E,E,E,'#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9','#D4C5A9',E,E,E],
-  [E,E,E,'#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A','#1A1A1A',E,E,E],
-  [E,E,'#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A',E,E],
-  [E,'#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A','#6B3A2A',E],
-  [E,'#6B3A2A','#6B3A2A','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#6B3A2A','#6B3A2A',E],
-  [E,'#6B3A2A','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#6B3A2A',E],
-  [E,E,'#F4C99B','#F4C99B','#FFFFFF','#1A1A1A','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#1A1A1A','#FFFFFF','#F4C99B','#F4C99B',E,E],
-  [E,E,'#F4C99B','#F4C99B','#1A1A1A','#1A1A1A','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#1A1A1A','#1A1A1A','#F4C99B','#F4C99B',E,E],
-  [E,E,'#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B',E,E],
-  [E,E,'#F4C99B','#F4C99B','#F4C99B','#F4C99B','#E88B8B','#E88B8B','#E88B8B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B',E,E],
-  [E,E,E,'#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B','#F4C99B',E,E,E],
-  [E,E,E,E,'#1B2A4A','#1B2A4A','#2E8B57','#2E8B57','#2E8B57','#1B2A4A','#1B2A4A','#1B2A4A',E,E,E,E],
-  [E,E,E,'#1B2A4A','#1B2A4A','#2E8B57','#2E8B57','#2E8B57','#2E8B57','#2E8B57','#1B2A4A','#1B2A4A','#1B2A4A',E,E,E],
-  [E,E,'#1B2A4A','#1B2A4A','#1B2A4A','#2E8B57','#2E8B57','#DAA520','#2E8B57','#2E8B57','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A',E,E],
-  [E,E,'#1B2A4A','#1B2A4A','#1B2A4A','#2E8B57','#2E8B57','#2E8B57','#2E8B57','#2E8B57','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A',E,E],
-  [E,E,'#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A',E,E],
-  [E,E,'#F4C99B','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#F4C99B',E,E],
-  [E,E,'#F4C99B','#F4C99B','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#F4C99B','#F4C99B',E,E],
-  [E,E,E,E,'#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A','#1B2A4A',E,E,E,E],
-  [E,E,E,E,'#1B2A4A','#1B2A4A','#1B2A4A',E,E,'#1B2A4A','#1B2A4A','#1B2A4A',E,E,E,E],
-  [E,E,E,E,'#3E2723','#3E2723','#3E2723',E,E,'#3E2723','#3E2723','#3E2723',E,E,E,E],
-  [E,E,E,'#3E2723','#3E2723','#3E2723','#3E2723',E,E,'#3E2723','#3E2723','#3E2723','#3E2723',E,E,E],
+  [_,_,_,_,_,B,B,B,B,B,B,_,_,_,_,_],
+  [_,_,_,_,B,Bd,B,B,B,Bd,B,B,_,_,_,_],
+  [_,_,_,B,B,B,Bd,B,Bd,B,B,B,B,_,_,_],
+  [_,_,_,B,Bd,B,B,Bd,B,B,Bd,B,B,_,_,_],
+  [_,_,_,B,B,B,B,B,B,B,B,B,B,_,_,_],
+  [_,_,H,H,B,B,B,B,B,B,B,B,H,H,_,_],
+  [_,_,H,Hd,H,SK,SK,SK,SK,SK,SK,H,Hd,H,_,_],
+  [_,H,H,H,SK,SK,SK,SK,SK,SK,SK,SK,H,H,H,_],
+  [_,H,Hd,SK,SK,SK,SK,SK,SK,SK,SK,SK,SK,Hd,H,_],
+  [_,H,H,SK,SK,EY,Bk,SK,SK,Bk,EY,SK,SK,H,H,_],
+  [_,H,H,SK,SK,EY,EY,SK,SK,EY,EY,SK,SK,H,H,_],
+  [_,H,Hd,SK,SK,SK,SK,SK,SK,SK,SK,SK,SK,Hd,H,_],
+  [_,H,H,SK,Sp,SK,SK,MO,MO,SK,SK,Sp,SK,H,H,_],
+  [_,_,H,SK,SK,SK,MO,SK,SK,MO,SK,SK,SK,H,_,_],
+  [_,_,H,Hd,SK,SK,SK,SK,SK,SK,SK,SK,Hd,H,_,_],
+  [_,_,G,G,R,R,SK,SK,SK,SK,R,R,G,G,_,_],
+  [_,_,R,G,R,R,R,G,G,R,R,R,G,R,_,_],
+  [_,R,R,R,R,R,G,R,R,G,R,R,R,R,R,_],
+  [_,R,Rd,R,R,R,R,G,G,R,R,R,R,Rd,R,_],
+  [_,R,R,R,Rd,R,R,R,R,R,R,Rd,R,R,R,_],
+  [_,R,Rd,R,R,R,R,G,G,R,R,R,R,Rd,R,_],
+  [R,R,R,R,Rd,R,R,R,R,R,R,Rd,R,R,R,R],
+  [R,R,Rd,R,R,R,R,R,R,R,R,R,R,Rd,R,R],
+  [R,R,R,Rd,R,R,G,R,R,G,R,R,Rd,R,R,R],
+  [_,R,R,R,R,R,R,R,R,R,R,R,R,R,R,_],
+  [_,_,R,R,SK,SK,R,R,R,R,SK,SK,R,R,_,_],
+  [_,_,_,R,SK,SK,R,R,R,R,SK,SK,R,_,_,_],
+  [_,_,_,_,SK,_,_,_,_,_,_,SK,_,_,_,_],
 ];
 
+// Tea Pet — Lucky Frog (10x8)
+const FG='#5B7A3A',FGd='#3E5C20',FGl='#7A9E50',FE='#DAA520';
 const TEA_PET_SPRITE = [
-  [E,E,E,'#4CAF50','#4CAF50',E,E,'#4CAF50','#4CAF50',E],
-  [E,E,'#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50'],
-  [E,'#4CAF50','#FFFFFF','#1A1A1A','#4CAF50','#4CAF50','#4CAF50','#FFFFFF','#1A1A1A','#4CAF50'],
-  [E,'#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50'],
-  ['#388E3C','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#388E3C'],
-  ['#388E3C','#4CAF50','#4CAF50','#E88B8B','#4CAF50','#4CAF50','#E88B8B','#4CAF50','#4CAF50','#388E3C'],
-  [E,'#388E3C','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#4CAF50','#388E3C',E],
-  [E,E,'#388E3C','#388E3C','#388E3C','#388E3C','#388E3C','#388E3C',E,E],
-  [E,'#2E7D32',E,'#388E3C','#388E3C','#388E3C','#388E3C',E,'#2E7D32',E],
-  [E,'#2E7D32',E,E,E,E,E,E,'#2E7D32',E],
+  [_,_,Bk,FE,Bk,_,Bk,FE,Bk,_],
+  [_,Bk,FG,Bk,FG,Bk,FG,Bk,FG,Bk],
+  [Bk,FG,FGl,FG,FG,FG,FG,FG,FGl,Bk],
+  [Bk,FG,FG,FG,FG,FG,FG,FG,FG,Bk],
+  [Bk,FGd,FG,FG,Bk,Bk,FG,FG,FGd,Bk],
+  [_,Bk,FGd,FG,FG,FG,FG,FGd,Bk,_],
+  [_,_,Bk,FGd,FGd,FGd,FGd,Bk,_,_],
+  [_,Bk,_,Bk,Bk,Bk,Bk,_,Bk,_],
 ];
 
+// Tea Cup / Cha Bei (8x8)
+const W='#F5F0E8',Wd='#D8D0C0',TL='#8B6914',BK='#3E2723';
 const TEA_CUP_SPRITE = [
-  [E,E,'#FFF8DC','#FFF8DC','#FFF8DC','#FFF8DC',E,E],
-  [E,'#8D6E63','#DAA520','#DAA520','#DAA520','#DAA520','#8D6E63',E],
-  [E,'#8D6E63','#FFF8DC','#FFF8DC','#FFF8DC','#FFF8DC','#8D6E63','#8D6E63'],
-  [E,'#8D6E63','#FFF8DC','#FFF8DC','#FFF8DC','#FFF8DC','#8D6E63','#8D6E63'],
-  [E,'#8D6E63','#FFF8DC','#FFF8DC','#FFF8DC','#FFF8DC','#8D6E63',E],
-  [E,E,'#8D6E63','#8D6E63','#8D6E63','#8D6E63',E,E],
-  [E,E,E,'#8D6E63','#8D6E63',E,E,E],
-  [E,E,'#8D6E63','#8D6E63','#8D6E63','#8D6E63',E,E],
+  [_,_,W,TL,TL,W,_,_],
+  [_,W,TL,TL,TL,TL,W,_],
+  [_,W,Wd,TL,TL,Wd,W,_],
+  [_,W,W,Wd,Wd,W,W,_],
+  [_,_,W,W,W,W,_,_],
+  [_,_,_,Wd,Wd,_,_,_],
+  [_,_,BK,W,W,BK,_,_],
+  [_,_,_,BK,BK,_,_,_],
 ];
 
+// Gaiwan (12x14) — tea liquid pixels use placeholder '__TEA__'
+const T_ = '__TEA__';
+const GAIWAN_SPRITE_TEMPLATE = [
+  [_,_,_,_,_,G,G,_,_,_,_,_],
+  [_,_,_,G,W,W,W,W,G,_,_,_],
+  [_,_,G,W,W,Wd,W,W,W,G,_,_],
+  [_,_,_,G,G,G,G,G,G,_,_,_],
+  [_,_,W,W,T_,T_,T_,T_,W,W,_,_],
+  [_,W,W,T_,T_,T_,T_,T_,T_,W,W,_],
+  [_,W,Wd,T_,T_,T_,T_,T_,T_,Wd,W,_],
+  [_,W,W,Wd,T_,T_,T_,T_,Wd,W,W,_],
+  [_,_,W,W,Wd,T_,T_,Wd,W,W,_,_],
+  [_,_,W,W,W,Wd,Wd,W,W,W,_,_],
+  [_,_,_,W,W,W,W,W,W,_,_,_],
+  [_,_,_,_,Wd,W,W,Wd,_,_,_,_],
+  [_,_,BK,Wd,W,W,W,W,Wd,BK,_,_],
+  [_,_,_,BK,BK,BK,BK,BK,BK,_,_,_],
+];
+
+function makeGaiwanSprite(teaColor) {
+  return GAIWAN_SPRITE_TEMPLATE.map(row =>
+    row.map(c => c === '__TEA__' ? teaColor : c)
+  );
+}
+
+// Fairness Pitcher / Gong Dao Bei (10x12)
+const PITCHER_SPRITE = [
+  [_,_,_,W,TL,TL,W,_,_,_],
+  [_,_,W,TL,TL,TL,TL,W,W,_],
+  [_,W,W,TL,TL,TL,TL,W,_,_],
+  [_,W,Wd,TL,TL,TL,TL,Wd,W,_],
+  [_,W,W,Wd,TL,TL,Wd,W,W,_],
+  [_,W,W,W,Wd,Wd,W,W,Wd,W],
+  [_,_,W,W,W,W,W,W,Wd,W],
+  [_,_,W,W,Wd,Wd,W,W,W,_],
+  [_,_,_,W,W,W,W,_,_,_],
+  [_,_,_,_,Wd,Wd,_,_,_,_],
+  [_,_,_,BK,W,W,BK,_,_,_],
+  [_,_,_,_,BK,BK,_,_,_,_],
+];
+
+// Kettle (14x14)
+const MT='#4A4A4A',MTd='#2E2E2E',MTl='#6E6E6E',STM='#A0A0A0',RA='#8B2500';
+const KETTLE_SPRITE = [
+  [_,_,_,_,_,_,_,_,STM,_,_,_,_,_],
+  [_,_,_,_,_,_,_,STM,_,STM,_,_,_,_],
+  [_,_,_,_,_,_,_,_,STM,_,_,_,_,_],
+  [_,_,_,_,Bk,Bk,Bk,Bk,Bk,_,_,_,_,_],
+  [_,_,_,Bk,MTl,MT,MT,MT,MTl,Bk,_,_,_,_],
+  [_,_,Bk,MT,MT,MTd,MT,MTd,MT,MT,Bk,_,_,_],
+  [Bk,Bk,MT,MT,MTd,MT,MT,MT,MTd,MT,MT,Bk,_,_],
+  [_,_,Bk,MT,MT,MT,RA,RA,MT,MT,MT,_,Bk,Bk],
+  [_,_,Bk,MT,MTd,MT,MT,MT,MT,MTd,MT,Bk,_,_],
+  [_,_,_,Bk,MT,MT,MTd,MTd,MT,MT,Bk,_,_,_],
+  [_,_,_,_,Bk,MT,MT,MT,MT,Bk,_,_,_,_],
+  [_,_,_,_,_,Bk,Bk,Bk,Bk,_,_,_,_,_],
+  [_,_,_,_,Bk,MTl,MTl,MTl,MTl,Bk,_,_,_,_],
+  [_,_,_,_,_,Bk,Bk,Bk,Bk,_,_,_,_,_],
+];
+
+// Category leaf icons (6x6 each)
+function makeCategoryIcon(c1, c2) {
+  return [
+    [_,_,c1,c1,_,_],
+    [_,c1,c2,c1,c1,_],
+    [c1,c2,c2,c2,c1,_],
+    [c1,c2,c2,c1,_,_],
+    [_,c1,c1,_,_,_],
+    [_,_,_,c1,_,_],
+  ];
+}
+
+const CATEGORY_ICONS = {
+  Green: makeCategoryIcon('#4CAF50','#81C784'),
+  White: makeCategoryIcon('#E8E0D0','#FFF8F0'),
+  Yellow: makeCategoryIcon('#FFD54F','#FFE082'),
+  Oolong: makeCategoryIcon('#FF8F00','#FFB74D'),
+  Black: makeCategoryIcon('#C62828','#EF5350'),
+  'Pu-erh': makeCategoryIcon('#3E2723','#5D4037'),
+  Scented: makeCategoryIcon('#9C27B0','#CE93D8'),
+};
+
+// Tea brew colors per category (for liquid in gaiwan during steeping)
+const TEA_BREW_COLORS = {
+  Green: '#A8C97F',
+  White: '#E8DCC8',
+  Yellow: '#D4A84B',
+  Oolong: '#B87830',
+  Black: '#8B3A2A',
+  'Pu-erh': '#3E2218',
+  Scented: '#A8C97F',
+};
+
+// PixelSprite renderer (box-shadow technique)
 function PixelSprite({ data, scale = 3 }) {
   const shadows = [];
   data.forEach((row, y) => {
@@ -267,12 +371,18 @@ function TeaPet({ bounce = false, scale = 3 }) {
   );
 }
 
-function SteamAnimation() {
+function Steam() {
   return (
-    <div className="relative" style={{ width: 20, height: 30 }}>
-      <div className="absolute bottom-0 left-1 w-1 h-3 bg-gray-300 rounded-full animate-steam opacity-70" />
-      <div className="absolute bottom-0 left-2.5 w-1 h-3 bg-gray-300 rounded-full animate-steam-delay opacity-70" />
-      <div className="absolute bottom-0 left-1.5 w-1 h-3 bg-gray-300 rounded-full animate-steam-delay2 opacity-70" />
+    <div style={{ display: 'flex', gap: 4, justifyContent: 'center', height: 24 }}>
+      {[0, 1, 2].map(i => (
+        <div key={i} style={{
+          width: 4, height: 4,
+          background: '#D8D0C0',
+          borderRadius: '50%',
+          animation: 'steamFloat 1.5s ease-in-out infinite',
+          animationDelay: `${i * 0.3}s`,
+        }} />
+      ))}
     </div>
   );
 }
@@ -312,6 +422,24 @@ function SpeechBubble({ message }) {
       <div className="pixel-border bg-white p-3 relative flex-1">
         <p className="font-pixel text-[10px] leading-relaxed text-tea-ink">{message}</p>
       </div>
+    </div>
+  );
+}
+
+function SpeechBubbleInline({ text }) {
+  return (
+    <div style={{
+      background: '#FFF8DC', border: '3px solid #3E2723', borderRadius: 2,
+      padding: '8px 12px', fontFamily: "'Press Start 2P', monospace",
+      fontSize: 8, lineHeight: 1.6, color: '#3E2723', maxWidth: 220, position: 'relative',
+    }}>
+      {text}
+      <div style={{
+        position: 'absolute', bottom: -10, left: 20,
+        width: 0, height: 0,
+        borderLeft: '8px solid transparent', borderRight: '8px solid transparent',
+        borderTop: '10px solid #3E2723',
+      }} />
     </div>
   );
 }
@@ -367,7 +495,7 @@ function TitleScreen({ onNavigate }) {
         <div className="flex items-end justify-center gap-2 mb-4">
           <EmmaCharacter scale={3} />
           <div className="flex flex-col items-center">
-            <SteamAnimation />
+            <Steam />
             <PixelSprite data={TEA_CUP_SPRITE} scale={3} />
           </div>
           <TeaPet scale={3} />
@@ -382,8 +510,8 @@ function TitleScreen({ onNavigate }) {
           <PixelButton onClick={() => onNavigate('collection')} variant="secondary" className="w-full">
             <span className="flex items-center justify-center gap-2"><Coffee size={14} /> Tea Collection</span>
           </PixelButton>
-          <PixelButton locked className="w-full">
-            Brewing Simulator — Coming Soon
+          <PixelButton onClick={() => onNavigate('brewing')} variant="primary" className="w-full">
+            <span className="flex items-center justify-center gap-2"><Flame size={14} /> Brewing Simulator</span>
           </PixelButton>
         </div>
 
@@ -852,9 +980,12 @@ function TeaCollection({ onBack, discoveredTeas }) {
                         <p className="font-pixel text-[9px] text-tea-ink">{tea.name}</p>
                         <p className="font-pixel text-[8px] text-gray-400 mt-0.5">{tea.chinese}</p>
                       </div>
-                      <span className={`font-pixel text-[7px] px-1.5 py-0.5 rounded ${CATEGORY_COLORS[tea.category]}`}>
-                        {tea.category}
-                      </span>
+                      <div className="flex items-center gap-1">
+                        <PixelSprite data={CATEGORY_ICONS[tea.category] || CATEGORY_ICONS.Green} scale={2} />
+                        <span className={`font-pixel text-[7px] px-1.5 py-0.5 rounded ${CATEGORY_COLORS[tea.category]}`}>
+                          {tea.category}
+                        </span>
+                      </div>
                     </div>
                     <p className="font-pixel text-[7px] text-gray-500 mt-2">{tea.region}</p>
                     <div className="flex gap-1 mt-2">
@@ -884,7 +1015,473 @@ function TeaCollection({ onBack, discoveredTeas }) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// SECTION 7: MAIN APP COMPONENT
+// SECTION 7: BREWING SIMULATOR
+// ═══════════════════════════════════════════════════════════
+
+function parseSteepTime(steepStr) {
+  const match = steepStr.match(/(\d+)-(\d+)/);
+  return match ? { min: parseInt(match[1]), max: parseInt(match[2]) } : { min: 60, max: 90 };
+}
+
+function StepIndicator({ current, total = 8 }) {
+  return (
+    <div className="flex items-center justify-center gap-2 my-3">
+      {Array.from({ length: total }, (_, i) => (
+        <div key={i} style={{
+          width: 10, height: 10, borderRadius: '50%',
+          background: i < current ? '#2E8B57' : i === current ? '#DAA520' : '#D8D0C0',
+          border: i === current ? '2px solid #3E2723' : '2px solid transparent',
+          transition: 'all 0.3s',
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function TeaTray({ activeItem, teaColor, steaming, petBounce }) {
+  const defaultTeaColor = '#4A6741';
+  const brewColor = teaColor || defaultTeaColor;
+
+  const itemStyle = (name) => ({
+    opacity: activeItem === name ? 1 : 0.5,
+    transition: 'all 0.3s',
+    display: 'inline-block',
+    ...(activeItem === name ? { filter: 'drop-shadow(0 0 6px #DAA520)' } : {}),
+  });
+
+  return (
+    <div style={{
+      background: '#5C3A1F', border: '4px solid #3E2723', borderRadius: 4,
+      padding: '16px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 24 }}>
+        <div style={itemStyle('kettle')} className="flex flex-col items-center">
+          {steaming && <Steam />}
+          <PixelSprite data={KETTLE_SPRITE} scale={2} />
+        </div>
+        <div style={itemStyle('gaiwan')} className="flex flex-col items-center">
+          {steaming && <Steam />}
+          <PixelSprite data={makeGaiwanSprite(brewColor)} scale={2} />
+        </div>
+        <div style={itemStyle('pitcher')} className="flex flex-col items-center">
+          <PixelSprite data={PITCHER_SPRITE} scale={2} />
+        </div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 16, marginTop: 4 }}>
+        {[0, 1, 2].map(i => (
+          <div key={i} style={itemStyle('cups')} className="inline-block">
+            <PixelSprite data={TEA_CUP_SPRITE} scale={2} />
+          </div>
+        ))}
+        <div style={itemStyle('pet')} className={petBounce ? 'animate-pet-bounce' : ''}>
+          <TeaPet scale={2} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BrewingSimulator({ onBack }) {
+  const [selectedTea, setSelectedTea] = useState(null);
+  const [step, setStep] = useState(0);
+  const [chosenTemp, setChosenTemp] = useState(85);
+  const [chosenGrams, setChosenGrams] = useState(null);
+  const [steepElapsed, setSteepElapsed] = useState(0);
+  const [steepRunning, setSteepRunning] = useState(false);
+  const [scores, setScores] = useState({ temp: false, grams: false, steep: false });
+  const [emmaMsg, setEmmaMsg] = useState("Choose a tea to begin your Gong Fu Cha journey!");
+  const [petBounce, setPetBounce] = useState(false);
+  const [rinsePhase, setRinsePhase] = useState(0);
+  const [pourAnim, setPourAnim] = useState(false);
+  const timerRef = useRef(null);
+
+  // Steep timer
+  useEffect(() => {
+    if (steepRunning) {
+      timerRef.current = setInterval(() => {
+        setSteepElapsed(prev => prev + 1);
+      }, 1000);
+    }
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [steepRunning]);
+
+  const teaColor = selectedTea ? TEA_BREW_COLORS[selectedTea.category] || '#4A6741' : '#4A6741';
+
+  // Generate leaf amount choices for step 3
+  const gramsChoices = useMemo(() => {
+    if (!selectedTea) return [];
+    const correct = selectedTea.gramsper100ml;
+    const allGrams = [3, 4, 5, 6, 7];
+    const wrong = allGrams.filter(g => g !== correct).sort(() => Math.random() - 0.5).slice(0, 2);
+    return [...wrong, correct].sort((a, b) => a - b);
+  }, [selectedTea]);
+
+  const handleSelectTea = (tea) => {
+    setSelectedTea(tea);
+    setStep(1);
+    setChosenTemp(85);
+    setChosenGrams(null);
+    setSteepElapsed(0);
+    setSteepRunning(false);
+    setScores({ temp: false, grams: false, steep: false });
+    setRinsePhase(0);
+    setPourAnim(false);
+    setEmmaMsg(`Great choice! ${tea.name} (${tea.chinese}) — a fine ${tea.category} tea from ${tea.region}. Let's brew it Gong Fu style!`);
+  };
+
+  const handleConfirmTemp = () => {
+    const diff = Math.abs(chosenTemp - selectedTea.temp);
+    const correct = diff <= 5;
+    setScores(prev => ({ ...prev, temp: correct }));
+    if (correct) {
+      setEmmaMsg("Perfect temperature for this tea!");
+    } else if (chosenTemp > selectedTea.temp) {
+      setEmmaMsg("That's too hot for this delicate tea — it'll scorch the leaves!");
+    } else {
+      setEmmaMsg("This tea needs hotter water to release its full flavor!");
+    }
+    setStep(2);
+  };
+
+  const handleWarmGaiwan = () => {
+    setEmmaMsg("We warm the gaiwan so the tea temperature stays consistent.");
+    setTimeout(() => setStep(3), 800);
+  };
+
+  const handleSelectGrams = (g) => {
+    setChosenGrams(g);
+    const correct = g === selectedTea.gramsper100ml;
+    setScores(prev => ({ ...prev, grams: correct }));
+    if (correct) {
+      setEmmaMsg("Just the right amount — you have a good eye!");
+    } else {
+      setEmmaMsg(`Hmm, ${selectedTea.name} works best with ${selectedTea.gramsper100ml}g per 100ml.`);
+    }
+    setStep(4);
+  };
+
+  const handleRinsePour = () => {
+    setRinsePhase(1);
+    setEmmaMsg("The first rinse wakes up the leaves and removes dust — we don't drink this one!");
+    setTimeout(() => setRinsePhase(2), 1000);
+  };
+
+  const handleRinseDiscard = () => {
+    setStep(5);
+    setSteepElapsed(0);
+    setSteepRunning(true);
+    setEmmaMsg("Now pour the water and watch the leaves dance! Hit POUR when you think it's ready.");
+  };
+
+  const handlePour = () => {
+    setSteepRunning(false);
+    const { min, max } = parseSteepTime(selectedTea.steepTime);
+    const correct = steepElapsed >= (min - 5) && steepElapsed <= (max + 5);
+    setScores(prev => ({ ...prev, steep: correct }));
+    if (steepElapsed < min - 5) {
+      setEmmaMsg("The leaves haven't opened yet — the flavor will be thin.");
+    } else if (steepElapsed > max + 5) {
+      setEmmaMsg("Over-steeped! The tea will be more bitter than intended.");
+    } else {
+      setEmmaMsg("Perfect timing! The tea master emerges!");
+    }
+    setStep(6);
+  };
+
+  const handlePourToPitcher = () => {
+    setPourAnim(true);
+    setEmmaMsg("The fairness cup ensures every guest gets the same taste.");
+    setTimeout(() => {
+      setStep(7);
+      setPourAnim(false);
+    }, 1500);
+  };
+
+  const starCount = [scores.temp, scores.grams, scores.steep].filter(Boolean).length;
+  const stars = starCount === 3 ? 3 : starCount === 2 ? 2 : 1;
+
+  const handleBrewAgain = () => {
+    setStep(1);
+    setChosenTemp(85);
+    setChosenGrams(null);
+    setSteepElapsed(0);
+    setSteepRunning(false);
+    setScores({ temp: false, grams: false, steep: false });
+    setRinsePhase(0);
+    setPourAnim(false);
+    setPetBounce(false);
+    setEmmaMsg(`Let's brew ${selectedTea.name} again! This time with more precision.`);
+  };
+
+  const handleTryDifferent = () => {
+    setSelectedTea(null);
+    setStep(0);
+    setChosenTemp(85);
+    setChosenGrams(null);
+    setSteepElapsed(0);
+    setSteepRunning(false);
+    setScores({ temp: false, grams: false, steep: false });
+    setRinsePhase(0);
+    setPourAnim(false);
+    setPetBounce(false);
+    setEmmaMsg("Choose a tea to begin your Gong Fu Cha journey!");
+  };
+
+  // Trigger pet bounce on results
+  useEffect(() => {
+    if (step === 7 && stars === 3) {
+      setPetBounce(true);
+      const t = setTimeout(() => setPetBounce(false), 600);
+      return () => clearTimeout(t);
+    }
+  }, [step, stars]);
+
+  // Set results message
+  useEffect(() => {
+    if (step === 7) {
+      if (stars === 3) setEmmaMsg("A perfect brew! You could work at Moychay!");
+      else if (stars === 2) setEmmaMsg("Getting there! Practice makes a tea master.");
+      else setEmmaMsg("Don't worry, even the best tea masters had to start somewhere.");
+    }
+  }, [step, stars]);
+
+  // Active item for tray highlighting
+  const activeItem = step === 1 ? 'kettle' : step === 2 || step === 3 || step === 4 || step === 5 ? 'gaiwan'
+    : step === 6 ? 'pitcher' : step === 7 ? 'cups' : null;
+
+  return (
+    <div className="min-h-screen bg-tea-cream p-4">
+      <div className="max-w-lg mx-auto">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-4">
+          <button onClick={onBack} className="font-pixel text-xs text-tea-ink hover:text-tea-red flex items-center gap-1 cursor-pointer">
+            <ArrowLeft size={14} /> Back
+          </button>
+          <h2 className="font-pixel text-sm text-tea-red flex-1 text-center">Brewing Simulator</h2>
+        </div>
+
+        {/* Step 0: Tea Selection */}
+        {step === 0 && (
+          <>
+            <div className="flex items-start gap-3 mb-4">
+              <EmmaCharacter scale={2} />
+              <SpeechBubbleInline text={emmaMsg} />
+            </div>
+            <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Select a tea to brew:</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {TEA_DATA.map(tea => (
+                <PixelCard key={tea.id} onClick={() => handleSelectTea(tea)}>
+                  <div className="flex items-center gap-2">
+                    <PixelSprite data={CATEGORY_ICONS[tea.category] || CATEGORY_ICONS.Green} scale={2} />
+                    <div>
+                      <p className="font-pixel text-[9px] text-tea-ink">{tea.name}</p>
+                      <p className="font-pixel text-[8px] text-gray-500">{tea.chinese} • {tea.category}</p>
+                    </div>
+                  </div>
+                </PixelCard>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* Steps 1-7: Active brewing */}
+        {step >= 1 && selectedTea && (
+          <>
+            {/* Emma + bubble */}
+            <div className="flex items-start gap-3 mb-3">
+              <EmmaCharacter scale={2} />
+              <SpeechBubbleInline text={emmaMsg} />
+            </div>
+
+            <StepIndicator current={step} total={8} />
+
+            {/* Tea info bar */}
+            <div className="pixel-border-inset bg-white p-2 mb-3 flex flex-wrap justify-center gap-3">
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Flame size={10} /> {selectedTea.temp}°C</span>
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Timer size={10} /> {selectedTea.steepTime}</span>
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Coffee size={10} /> {selectedTea.gramsper100ml}g/100ml</span>
+            </div>
+
+            {/* Tea Tray */}
+            <TeaTray
+              activeItem={activeItem}
+              teaColor={step >= 5 ? teaColor : '#4A6741'}
+              steaming={step >= 1 && step <= 5}
+              petBounce={petBounce}
+            />
+
+            {/* Step-specific controls */}
+            <div className="mt-4">
+              {/* Step 1: Temperature */}
+              {step === 1 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Step 1: Heat the Water</p>
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <button
+                      onClick={() => setChosenTemp(prev => Math.max(70, prev - 5))}
+                      className="font-pixel text-lg px-3 py-1 pixel-border bg-tea-cream cursor-pointer hover:bg-gray-200"
+                    >−</button>
+                    <span className="font-pixel text-xl text-tea-red" style={{ minWidth: 80, textAlign: 'center' }}>
+                      {chosenTemp}°C
+                    </span>
+                    <button
+                      onClick={() => setChosenTemp(prev => Math.min(100, prev + 5))}
+                      className="font-pixel text-lg px-3 py-1 pixel-border bg-tea-cream cursor-pointer hover:bg-gray-200"
+                    >+</button>
+                  </div>
+                  <PixelButton onClick={handleConfirmTemp} variant="primary" className="w-full">
+                    Confirm Temperature
+                  </PixelButton>
+                </PixelCard>
+              )}
+
+              {/* Step 2: Warm Gaiwan */}
+              {step === 2 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Step 2: Warm the Gaiwan</p>
+                  <p className="font-pixel text-[8px] text-gray-500 mb-3 text-center">Pour hot water to warm the vessel, then discard.</p>
+                  <PixelButton onClick={handleWarmGaiwan} variant="secondary" className="w-full">
+                    Pour &amp; Swirl
+                  </PixelButton>
+                </PixelCard>
+              )}
+
+              {/* Step 3: Add Tea Leaves */}
+              {step === 3 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Step 3: Add Tea Leaves</p>
+                  <p className="font-pixel text-[8px] text-gray-500 mb-3 text-center">How many grams per 100ml?</p>
+                  <div className="flex gap-3 justify-center">
+                    {gramsChoices.map(g => (
+                      <PixelButton key={g} onClick={() => handleSelectGrams(g)} variant="secondary" className="flex-1">
+                        {g}g
+                      </PixelButton>
+                    ))}
+                  </div>
+                </PixelCard>
+              )}
+
+              {/* Step 4: Rinse Leaves */}
+              {step === 4 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Step 4: Rinse the Leaves (洗茶)</p>
+                  {rinsePhase === 0 && (
+                    <PixelButton onClick={handleRinsePour} variant="secondary" className="w-full">
+                      Pour Hot Water
+                    </PixelButton>
+                  )}
+                  {rinsePhase === 1 && (
+                    <p className="font-pixel text-[9px] text-tea-gold text-center animate-blink">Rinsing...</p>
+                  )}
+                  {rinsePhase === 2 && (
+                    <PixelButton onClick={handleRinseDiscard} variant="secondary" className="w-full">
+                      Discard Rinse Water
+                    </PixelButton>
+                  )}
+                </PixelCard>
+              )}
+
+              {/* Step 5: Steep */}
+              {step === 5 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-2 text-center">Step 5: First Infusion</p>
+                  <div className="flex items-center justify-center mb-3">
+                    <span className="font-pixel text-3xl text-tea-red">{steepElapsed}s</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-200 pixel-border-inset mb-3 overflow-hidden">
+                    <div
+                      className="h-full transition-all duration-1000"
+                      style={{
+                        width: `${Math.min(100, (steepElapsed / (parseSteepTime(selectedTea.steepTime).max + 10)) * 100)}%`,
+                        background: steepElapsed <= parseSteepTime(selectedTea.steepTime).max + 5 ? teaColor : '#C62828',
+                      }}
+                    />
+                  </div>
+                  <button
+                    onClick={handlePour}
+                    style={{ minHeight: 56 }}
+                    className="w-full font-pixel text-sm px-4 py-4 pixel-border bg-tea-red text-white hover:bg-red-800 transition-all active:translate-y-0.5 cursor-pointer"
+                  >
+                    POUR!
+                  </button>
+                </PixelCard>
+              )}
+
+              {/* Step 6: Pour to Pitcher */}
+              {step === 6 && (
+                <PixelCard>
+                  <p className="font-pixel text-[10px] text-tea-ink mb-3 text-center">Step 6: Pour into Fairness Cup</p>
+                  {!pourAnim ? (
+                    <PixelButton onClick={handlePourToPitcher} variant="secondary" className="w-full">
+                      Pour Tea
+                    </PixelButton>
+                  ) : (
+                    <div className="flex justify-center">
+                      <div className="animate-pour" style={{ width: 8, background: teaColor, borderRadius: 2 }} />
+                    </div>
+                  )}
+                </PixelCard>
+              )}
+
+              {/* Step 7: Results */}
+              {step === 7 && (
+                <PixelCard>
+                  <p className="font-pixel text-sm text-tea-ink mb-4 text-center">Brewing Results</p>
+
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-between font-pixel text-[9px]">
+                      <span className="text-tea-ink">Temperature:</span>
+                      <span className={scores.temp ? 'text-green-600' : 'text-red-600'}>
+                        {scores.temp ? <Check size={12} className="inline" /> : <X size={12} className="inline" />}
+                        {' '}{chosenTemp}°C {!scores.temp && `→ ${selectedTea.temp}°C`}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between font-pixel text-[9px]">
+                      <span className="text-tea-ink">Leaf amount:</span>
+                      <span className={scores.grams ? 'text-green-600' : 'text-red-600'}>
+                        {scores.grams ? <Check size={12} className="inline" /> : <X size={12} className="inline" />}
+                        {' '}{chosenGrams}g {!scores.grams && `→ ${selectedTea.gramsper100ml}g`}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between font-pixel text-[9px]">
+                      <span className="text-tea-ink">Steep time:</span>
+                      <span className={scores.steep ? 'text-green-600' : 'text-red-600'}>
+                        {scores.steep ? <Check size={12} className="inline" /> : <X size={12} className="inline" />}
+                        {' '}{steepElapsed}s {!scores.steep && `→ ${selectedTea.steepTime}`}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="text-center mb-4">
+                    <span className="font-pixel text-lg">
+                      {Array.from({ length: 3 }, (_, i) => (
+                        <Star key={i} size={20} className="inline" fill={i < stars ? '#DAA520' : 'none'} color={i < stars ? '#DAA520' : '#D8D0C0'} />
+                      ))}
+                    </span>
+                    <p className="font-pixel text-[9px] text-gray-500 mt-1">{stars}/3 Stars</p>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <PixelButton onClick={handleBrewAgain} variant="secondary" className="flex-1">
+                      Brew Again
+                    </PixelButton>
+                    <PixelButton onClick={handleTryDifferent} variant="primary" className="flex-1">
+                      Different Tea
+                    </PixelButton>
+                  </div>
+                </PixelCard>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// SECTION 8: MAIN APP COMPONENT
 // ═══════════════════════════════════════════════════════════
 
 export default function App() {
@@ -921,6 +1518,8 @@ export default function App() {
           discoveredTeas={discoveredTeas}
         />
       );
+    case 'brewing':
+      return <BrewingSimulator onBack={handleBack} />;
     default:
       return <TitleScreen onNavigate={handleNavigate} />;
   }
