@@ -58,7 +58,7 @@ const TEA_DATA = [
   },
   {
     id: 6, name: 'Keemun (Qimen)', chinese: '祁门红茶', category: 'Black',
-    region: 'Qimen, Anhui', temp: 90, steepTime: '6-8s', gramsper100ml: 5,
+    region: 'Qimen, Anhui', temp: 90, steepTime: '6-8s', gramsper100ml: 4,
     flavorNotes: ['cocoa', 'wine', 'smoky'],
     processing: 'Fully oxidized and slow-dried',
     brewingVessel: 'Gaiwan',
@@ -128,7 +128,7 @@ const TEA_DATA = [
   },
   {
     id: 13, name: 'Jun Shan Yin Zhen', chinese: '君山银针', category: 'Yellow',
-    region: 'Junshan Island, Hunan', temp: 75, steepTime: '15-30s', gramsper100ml: 4,
+    region: 'Junshan Island, Hunan', temp: 80, steepTime: '8-12s', gramsper100ml: 4,
     flavorNotes: ['mellow', 'sweet corn', 'smooth'],
     processing: 'Sealed yellowing (men huang) after pan-firing',
     brewingVessel: 'Glass cup',
