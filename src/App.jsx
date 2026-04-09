@@ -12,6 +12,8 @@ const TEA_DATA = [
     flavorNotes: ['chestnut', 'sweet', 'vegetal'],
     processing: 'Pan-fired in a wok to halt oxidation',
     brewingVessel: 'Glass cup',
+    terroir: 'High altitude lake region with misty, humid climate and mineral-rich soil',
+    oxidation: 'Unoxidized (0%)',
     funFact: 'Dragon Well is pan-fired by hand in a wok, and master tea makers can judge the temperature by touching the side of the wok with their bare hands.'
   },
   {
@@ -20,6 +22,8 @@ const TEA_DATA = [
     flavorNotes: ['fruity', 'floral', 'fresh'],
     processing: 'Hand-rolled and pan-fired',
     brewingVessel: 'Glass cup',
+    terroir: 'Grown among fruit orchards at low altitude, absorbing fruity aromas from surrounding trees',
+    oxidation: 'Unoxidized (0%)',
     funFact: 'Bi Luo Chun is grown among fruit trees, which gives the tea its distinctive fruity aroma. It takes over 80,000 hand-picked buds to make just one kilogram.'
   },
   {
@@ -28,6 +32,8 @@ const TEA_DATA = [
     flavorNotes: ['orchid', 'creamy', 'toasty'],
     processing: 'Partially oxidized, then rolled and roasted',
     brewingVessel: 'Gaiwan',
+    terroir: 'Rocky, iron-rich soil in subtropical Anxi hills with cool, foggy springs',
+    oxidation: 'Light-medium (25-40%)',
     funFact: 'Named after the Iron Goddess of Mercy (Guanyin), legend says a poor farmer found a withered tea plant behind her temple and nursed it back to health.'
   },
   {
@@ -36,6 +42,8 @@ const TEA_DATA = [
     flavorNotes: ['mineral', 'roasted', 'caramel'],
     processing: 'Heavy roasting after partial oxidation',
     brewingVessel: 'Yixing teapot',
+    terroir: 'Mineral-rich rocky crevices (yan cha) in Wuyi cliffs with unique microclimate',
+    oxidation: 'Heavy (60-70%)',
     funFact: 'The original Da Hong Pao mother trees are over 350 years old. In 2005, 20 grams sold for approximately $28,000, making it the most expensive tea in the world.'
   },
   {
@@ -44,6 +52,8 @@ const TEA_DATA = [
     flavorNotes: ['buttery', 'floral', 'honey'],
     processing: 'Medium oxidation with light roasting',
     brewingVessel: 'Gaiwan',
+    terroir: 'Mountain slopes at 700m altitude in Taiwan with frequent fog and moderate temperatures',
+    oxidation: 'Medium (30-40%)',
     funFact: 'Dong Ding means "Frozen Summit" — the original tea plants were brought from Wuyi Mountains to Taiwan in the 1800s by a scholar who passed his imperial exams.'
   },
   {
@@ -52,6 +62,8 @@ const TEA_DATA = [
     flavorNotes: ['cocoa', 'wine', 'smoky'],
     processing: 'Fully oxidized and slow-dried',
     brewingVessel: 'Gaiwan',
+    terroir: 'Mountainous terrain with high humidity, moderate climate and rich red soil',
+    oxidation: 'Fully oxidized (100%)',
     funFact: 'Keemun was once a staple of English Breakfast blends. Queen Elizabeth II reportedly enjoyed Keemun tea as part of her daily routine.'
   },
   {
@@ -60,6 +72,8 @@ const TEA_DATA = [
     flavorNotes: ['pine smoke', 'longan', 'bold'],
     processing: 'Smoke-dried over pinewood fires',
     brewingVessel: 'Yixing teapot',
+    terroir: 'High mountain forests of Wuyi at 1000m+, cool and damp with pine tree canopy',
+    oxidation: 'Fully oxidized (100%)',
     funFact: 'Considered the first black tea ever produced. Legend says soldiers camped in a tea factory during the Ming Dynasty, delaying processing. Workers dried leaves over pine fires to save them.'
   },
   {
@@ -68,6 +82,8 @@ const TEA_DATA = [
     flavorNotes: ['malty', 'pepper', 'sweet potato'],
     processing: 'Fully oxidized from large-leaf cultivar',
     brewingVessel: 'Gaiwan',
+    terroir: 'Ancient tea forests at high altitude in Yunnan with rich biodiversity and red laterite soil',
+    oxidation: 'Fully oxidized (100%)',
     funFact: 'Dian Hong is made from large-leaf Yunnan tea trees, some of which are over 1,000 years old. The golden buds create a naturally sweet, smooth cup.'
   },
   {
@@ -76,6 +92,8 @@ const TEA_DATA = [
     flavorNotes: ['melon', 'hay', 'delicate'],
     processing: 'Withered and sun-dried with minimal handling',
     brewingVessel: 'Glass cup',
+    terroir: 'Coastal Fuding hillsides with ocean breezes, mild winters and misty springs',
+    oxidation: 'Minimal (5-10%)',
     funFact: 'Silver Needle is made only from unopened buds covered in fine white hairs. It can only be harvested during a few days in early spring under strict weather conditions.'
   },
   {
@@ -84,6 +102,8 @@ const TEA_DATA = [
     flavorNotes: ['peony', 'nutty', 'fresh'],
     processing: 'Withered and air-dried naturally',
     brewingVessel: 'Gaiwan',
+    terroir: 'Same Fuding terroir as Silver Needle, slightly lower altitude hillside gardens',
+    oxidation: 'Minimal (5-10%)',
     funFact: 'White Peony uses one bud and two leaves, giving it more body than Silver Needle. Like fine wine, high-quality white tea improves with age.'
   },
   {
@@ -92,6 +112,8 @@ const TEA_DATA = [
     flavorNotes: ['astringent', 'floral', 'evolving'],
     processing: 'Sun-dried and naturally aged over years',
     brewingVessel: 'Yixing teapot',
+    terroir: 'Ancient forest trees at 1200-1800m in Yunnan with distinct wet and dry seasons',
+    oxidation: 'Light then evolving (10-15% initially)',
     funFact: 'Sheng Pu-erh is a living tea that ages and ferments over decades. Some cakes from the 1950s sell for over $100,000. The flavor transforms completely over time.'
   },
   {
@@ -100,6 +122,8 @@ const TEA_DATA = [
     flavorNotes: ['earthy', 'chocolate', 'smooth'],
     processing: 'Wet-piled (wo dui) for accelerated fermentation',
     brewingVessel: 'Yixing teapot',
+    terroir: 'Same Yunnan old-growth terroir, but processing overrides terroir influence',
+    oxidation: 'Post-fermented (100%+)',
     funFact: 'Shu Pu-erh was invented in 1973 using a technique called "wet piling" to accelerate fermentation, simulating decades of aging in just 45-60 days.'
   },
   {
@@ -108,6 +132,8 @@ const TEA_DATA = [
     flavorNotes: ['mellow', 'sweet corn', 'smooth'],
     processing: 'Sealed yellowing (men huang) after pan-firing',
     brewingVessel: 'Glass cup',
+    terroir: 'Small island in Dongting Lake with unique fog, moisture and fertile lake-bed soil',
+    oxidation: 'Lightly oxidized (10-15%)',
     funFact: 'Yellow tea undergoes a unique "sealed yellowing" step where damp leaves are wrapped in cloth. Jun Shan Yin Zhen was tribute tea for Chinese emperors.'
   },
   {
@@ -116,6 +142,8 @@ const TEA_DATA = [
     flavorNotes: ['jasmine', 'sweet', 'round'],
     processing: 'Green tea base scented with fresh jasmine flowers',
     brewingVessel: 'Gaiwan',
+    terroir: 'Base tea from Fujian highlands; jasmine from warm Fuzhou river valleys',
+    oxidation: 'Unoxidized base (0%)',
     funFact: 'Each pearl is hand-rolled from two leaves and a bud, then scented with fresh jasmine flowers up to seven times. The flowers are removed after each scenting.'
   },
   {
@@ -124,6 +152,8 @@ const TEA_DATA = [
     flavorNotes: ['osmanthus', 'peach', 'honeyed'],
     processing: 'Oolong base blended with osmanthus flowers',
     brewingVessel: 'Gaiwan',
+    terroir: 'Oolong base from Fujian/Taiwan mountains; osmanthus from warm southern gardens',
+    oxidation: 'Medium (30-40%)',
     funFact: 'Osmanthus flowers bloom for only about two weeks in autumn. The tiny golden flowers are mixed with oolong tea to create this fragrant blend prized since the Tang Dynasty.'
   }
 ];
@@ -545,9 +575,11 @@ function writeSave(data) {
   } catch (e) { /* ignore */ }
 }
 
-function generateQuestions(count = 10) {
+function generateQuestions(count = 10, expertMode = false) {
   const questions = [];
-  const types = ['category', 'temperature', 'region', 'steepTime', 'leafAmount', 'processing', 'vessel', 'flavorMatch'];
+  const normalTypes = ['category', 'temperature', 'region', 'leafAmount', 'processing', 'vessel', 'flavorMatch'];
+  const expertTypes = ['terroir', 'oxidation', 'processingDetail', 'terroirEffect'];
+  const types = expertMode ? [...normalTypes, ...expertTypes] : normalTypes;
 
   for (let i = 0; i < count; i++) {
     const type = types[Math.floor(Math.random() * types.length)];
@@ -587,17 +619,6 @@ function generateQuestions(count = 10) {
         choices,
         correctIndex: choices.indexOf(tea.name),
         explanation: `${tea.name} (${tea.chinese}) comes from ${tea.region}. It's known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
-      });
-    } else if (type === 'steepTime') {
-      const allTimes = [...new Set(TEA_DATA.map(t => t.steepTime))];
-      const wrongTimes = allTimes.filter(t => t !== tea.steepTime).sort(() => Math.random() - 0.5).slice(0, 3);
-      const choices = [...wrongTimes, tea.steepTime].sort(() => Math.random() - 0.5);
-      questions.push({
-        type, tea,
-        prompt: `How long should you steep ${tea.name}?`,
-        choices,
-        correctIndex: choices.indexOf(tea.steepTime),
-        explanation: `${tea.name} should be steeped for ${tea.steepTime}. ${tea.category} teas typically need ${tea.steepTime.startsWith('15') ? 'very short' : tea.steepTime.startsWith('90') ? 'longer' : 'moderate'} steeping times.`,
       });
     } else if (type === 'leafAmount') {
       const allGrams = [...new Set(TEA_DATA.map(t => t.gramsper100ml))];
@@ -646,6 +667,50 @@ function generateQuestions(count = 10) {
         correctIndex: choices.indexOf(correctFlavor),
         explanation: `${tea.name} is known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
       });
+    } else if (type === 'terroir') {
+      const wrongTerroirs = TEA_DATA.filter(t => t.id !== tea.id)
+        .sort(() => Math.random() - 0.5).slice(0, 3).map(t => t.terroir);
+      const choices = [...wrongTerroirs, tea.terroir].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `What terroir defines ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(tea.terroir),
+        explanation: `${tea.name} grows in: ${tea.terroir}. This terroir contributes to its ${tea.flavorNotes.join(', ')} character.`,
+      });
+    } else if (type === 'oxidation') {
+      const allOx = [...new Set(TEA_DATA.map(t => t.oxidation))];
+      const wrongOx = allOx.filter(o => o !== tea.oxidation).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongOx, tea.oxidation].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `What is the oxidation level of ${tea.name}?`,
+        choices,
+        correctIndex: choices.indexOf(tea.oxidation),
+        explanation: `${tea.name} is ${tea.oxidation}. ${tea.category} teas are characterized by this level of oxidation.`,
+      });
+    } else if (type === 'processingDetail') {
+      const wrongTeas = TEA_DATA.filter(t => t.id !== tea.id).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongTeas.map(t => t.name), tea.name].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `Which tea is made by: "${tea.processing}"?`,
+        choices,
+        correctIndex: choices.indexOf(tea.name),
+        explanation: `${tea.name} is made by: ${tea.processing}. This ${tea.category} tea comes from ${tea.region}.`,
+      });
+    } else if (type === 'terroirEffect') {
+      const correctFlavor = tea.flavorNotes[Math.floor(Math.random() * tea.flavorNotes.length)];
+      const allFlavors = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
+      const wrongFlavors = [...new Set(allFlavors)].sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongFlavors, correctFlavor].sort(() => Math.random() - 0.5);
+      questions.push({
+        type, tea,
+        prompt: `Which flavor of ${tea.name} is shaped by its terroir in ${tea.region}?`,
+        choices,
+        correctIndex: choices.indexOf(correctFlavor),
+        explanation: `${tea.terroir} — this terroir gives ${tea.name} its distinctive ${correctFlavor} character.`,
+      });
     }
   }
   return questions;
@@ -659,7 +724,14 @@ function getLevel(score) {
 }
 
 function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
-  const [questions, setQuestions] = useState(() => generateQuestions(10));
+  const [expertMode, setExpertMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem(SAVE_KEY);
+      if (saved) return JSON.parse(saved).expertMode || false;
+    } catch (e) { /* ignore */ }
+    return false;
+  });
+  const [questions, setQuestions] = useState(() => generateQuestions(10, false));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [totalCorrect, setTotalCorrect] = useState(() => {
@@ -681,6 +753,33 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
   useEffect(() => {
     writeSave({ totalCorrect });
   }, [totalCorrect]);
+
+  useEffect(() => {
+    writeSave({ expertMode });
+  }, [expertMode]);
+
+  // Initialize questions with saved expert mode
+  useEffect(() => {
+    setQuestions(generateQuestions(10, expertMode));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleToggleExpert = useCallback(() => {
+    setExpertMode(prev => {
+      const next = !prev;
+      setQuestions(generateQuestions(10, next));
+      setCurrentIndex(0);
+      setScore(0);
+      setStreak(0);
+      setBestStreak(0);
+      setSelectedAnswer(null);
+      setShowResult(false);
+      setQuizDone(false);
+      setEmmaMsg(next
+        ? "Expert mode! Let's test your deep tea knowledge — terroir, oxidation, and more!"
+        : "Normal mode — let's brush up on the tea basics!");
+      return next;
+    });
+  }, []);
 
   const question = questions[currentIndex];
 
@@ -743,7 +842,7 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
   };
 
   const handlePlayAgain = () => {
-    setQuestions(generateQuestions(10));
+    setQuestions(generateQuestions(10, expertMode));
     setCurrentIndex(0);
     setScore(0);
     setStreak(0);
@@ -806,6 +905,14 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea }) {
 
         <div className="mt-4 mb-2 flex justify-between items-center">
           <span className="font-pixel text-[8px] text-gray-500">Level: {getLevel(totalCorrect)}</span>
+          <button
+            onClick={handleToggleExpert}
+            className={`font-pixel text-[8px] px-2 py-1 pixel-border cursor-pointer transition-colors ${
+              expertMode ? 'bg-tea-red text-white' : 'bg-gray-200 text-tea-ink'
+            }`}
+          >
+            {expertMode ? 'Expert' : 'Normal'}
+          </button>
           <TeaPet bounce={petBounce} scale={2} />
         </div>
 
@@ -1162,15 +1269,20 @@ function BrewingSimulator({ onBack }) {
 
   const handleRinsePour = () => {
     setRinsePhase(1);
-    setEmmaMsg("The first rinse wakes up the leaves and removes dust — we don't drink this one!");
+    setEmmaMsg("The first rinse wakes up the leaves — we'll pour this over the tea pet!");
     setTimeout(() => setRinsePhase(2), 1000);
   };
 
-  const handleRinseDiscard = () => {
-    setStep(5);
-    setSteepElapsed(0);
-    setSteepRunning(true);
-    setEmmaMsg("Now pour the water and watch the leaves dance! Hit POUR when you think it's ready.");
+  const handleRinsePourPet = () => {
+    setPetBounce(true);
+    setTimeout(() => setPetBounce(false), 600);
+    setEmmaMsg("We pour the rinse water over the tea pet — it brings good luck and seasons the clay!");
+    setTimeout(() => {
+      setStep(5);
+      setSteepElapsed(0);
+      setSteepRunning(true);
+      setEmmaMsg("Now pour the water and watch the leaves dance! Hit POUR when you think it's ready.");
+    }, 1200);
   };
 
   const handlePour = () => {
@@ -1246,7 +1358,9 @@ function BrewingSimulator({ onBack }) {
   }, [step, stars]);
 
   // Active item for tray highlighting
-  const activeItem = step === 1 ? 'kettle' : step === 2 || step === 3 || step === 4 || step === 5 ? 'gaiwan'
+  const activeItem = step === 1 ? 'kettle'
+    : (step === 4 && rinsePhase === 2) ? 'pet'
+    : step === 2 || step === 3 || step === 4 || step === 5 ? 'gaiwan'
     : step === 6 ? 'pitcher' : step === 7 ? 'cups' : null;
 
   return (
@@ -1297,9 +1411,9 @@ function BrewingSimulator({ onBack }) {
 
             {/* Tea info bar */}
             <div className="pixel-border-inset bg-white p-2 mb-3 flex flex-wrap justify-center gap-3">
-              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Flame size={10} /> {selectedTea.temp}°C</span>
-              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Timer size={10} /> {selectedTea.steepTime}</span>
-              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Coffee size={10} /> {selectedTea.gramsper100ml}g/100ml</span>
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Flame size={10} /> ???</span>
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Timer size={10} /> ???</span>
+              <span className="font-pixel text-[8px] text-tea-ink flex items-center gap-1"><Coffee size={10} /> ???</span>
             </div>
 
             {/* Tea Tray */}
@@ -1374,8 +1488,8 @@ function BrewingSimulator({ onBack }) {
                     <p className="font-pixel text-[9px] text-tea-gold text-center animate-blink">Rinsing...</p>
                   )}
                   {rinsePhase === 2 && (
-                    <PixelButton onClick={handleRinseDiscard} variant="secondary" className="w-full">
-                      Discard Rinse Water
+                    <PixelButton onClick={handleRinsePourPet} variant="secondary" className="w-full">
+                      Pour over Tea Pet
                     </PixelButton>
                   )}
                 </PixelCard>
