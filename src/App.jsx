@@ -8,7 +8,7 @@ import { ArrowLeft, Lock, Star, Trophy, Heart, BookOpen, Coffee, Flame, Droplets
 const TEA_DATA = [
   {
     id: 1, name: 'Dragon Well (Longjing)', chinese: '龙井', category: 'Green',
-    region: 'Hangzhou, Zhejiang', temp: 80, steepTime: '60-90s', gramsper100ml: 3,
+    region: 'Hangzhou, Zhejiang', temp: 80, steepTime: '5-10s', gramsper100ml: 3,
     flavorNotes: ['chestnut', 'sweet', 'vegetal'],
     processing: 'Pan-fired in a wok to halt oxidation',
     brewingVessel: 'Glass cup',
@@ -18,7 +18,7 @@ const TEA_DATA = [
   },
   {
     id: 2, name: 'Bi Luo Chun', chinese: '碧螺春', category: 'Green',
-    region: 'Suzhou, Jiangsu', temp: 75, steepTime: '45-60s', gramsper100ml: 3,
+    region: 'Suzhou, Jiangsu', temp: 75, steepTime: '5-10s', gramsper100ml: 3,
     flavorNotes: ['fruity', 'floral', 'fresh'],
     processing: 'Hand-rolled and pan-fired',
     brewingVessel: 'Glass cup',
@@ -28,7 +28,7 @@ const TEA_DATA = [
   },
   {
     id: 3, name: 'Tie Guan Yin', chinese: '铁观音', category: 'Oolong',
-    region: 'Anxi, Fujian', temp: 95, steepTime: '30-45s', gramsper100ml: 7,
+    region: 'Anxi, Fujian', temp: 85, steepTime: '5-7s', gramsper100ml: 6,
     flavorNotes: ['orchid', 'creamy', 'toasty'],
     processing: 'Partially oxidized, then rolled and roasted',
     brewingVessel: 'Gaiwan',
@@ -38,7 +38,7 @@ const TEA_DATA = [
   },
   {
     id: 4, name: 'Da Hong Pao', chinese: '大红袍', category: 'Oolong',
-    region: 'Wuyi Mountains, Fujian', temp: 95, steepTime: '30-45s', gramsper100ml: 7,
+    region: 'Wuyi Mountains, Fujian', temp: 100, steepTime: '5-8s', gramsper100ml: 7,
     flavorNotes: ['mineral', 'roasted', 'caramel'],
     processing: 'Heavy roasting after partial oxidation',
     brewingVessel: 'Yixing teapot',
@@ -48,7 +48,7 @@ const TEA_DATA = [
   },
   {
     id: 5, name: 'Dong Ding Oolong', chinese: '冻顶乌龙', category: 'Oolong',
-    region: 'Lugu, Nantou, Taiwan', temp: 90, steepTime: '45-60s', gramsper100ml: 6,
+    region: 'Lugu, Nantou, Taiwan', temp: 95, steepTime: '10-15s', gramsper100ml: 5,
     flavorNotes: ['buttery', 'floral', 'honey'],
     processing: 'Medium oxidation with light roasting',
     brewingVessel: 'Gaiwan',
@@ -58,7 +58,7 @@ const TEA_DATA = [
   },
   {
     id: 6, name: 'Keemun (Qimen)', chinese: '祁门红茶', category: 'Black',
-    region: 'Qimen, Anhui', temp: 90, steepTime: '60-90s', gramsper100ml: 4,
+    region: 'Qimen, Anhui', temp: 90, steepTime: '6-8s', gramsper100ml: 5,
     flavorNotes: ['cocoa', 'wine', 'smoky'],
     processing: 'Fully oxidized and slow-dried',
     brewingVessel: 'Gaiwan',
@@ -68,7 +68,7 @@ const TEA_DATA = [
   },
   {
     id: 7, name: 'Lapsang Souchong', chinese: '正山小种', category: 'Black',
-    region: 'Wuyi Mountains, Fujian', temp: 95, steepTime: '60-90s', gramsper100ml: 4,
+    region: 'Wuyi Mountains, Fujian', temp: 95, steepTime: '5-7s', gramsper100ml: 5,
     flavorNotes: ['pine smoke', 'longan', 'bold'],
     processing: 'Smoke-dried over pinewood fires',
     brewingVessel: 'Yixing teapot',
@@ -78,7 +78,7 @@ const TEA_DATA = [
   },
   {
     id: 8, name: 'Dian Hong', chinese: '滇红', category: 'Black',
-    region: 'Yunnan', temp: 90, steepTime: '60-90s', gramsper100ml: 4,
+    region: 'Yunnan', temp: 90, steepTime: '6-10s', gramsper100ml: 5,
     flavorNotes: ['malty', 'pepper', 'sweet potato'],
     processing: 'Fully oxidized from large-leaf cultivar',
     brewingVessel: 'Gaiwan',
@@ -88,7 +88,7 @@ const TEA_DATA = [
   },
   {
     id: 9, name: 'Silver Needle', chinese: '白毫银针', category: 'White',
-    region: 'Fuding, Fujian', temp: 80, steepTime: '90-120s', gramsper100ml: 4,
+    region: 'Fuding, Fujian', temp: 80, steepTime: '10-15s', gramsper100ml: 5,
     flavorNotes: ['melon', 'hay', 'delicate'],
     processing: 'Withered and sun-dried with minimal handling',
     brewingVessel: 'Glass cup',
@@ -98,7 +98,7 @@ const TEA_DATA = [
   },
   {
     id: 10, name: 'White Peony', chinese: '白牡丹', category: 'White',
-    region: 'Fuding, Fujian', temp: 85, steepTime: '60-90s', gramsper100ml: 4,
+    region: 'Fuding, Fujian', temp: 80, steepTime: '6-8s', gramsper100ml: 5,
     flavorNotes: ['peony', 'nutty', 'fresh'],
     processing: 'Withered and air-dried naturally',
     brewingVessel: 'Gaiwan',
@@ -108,7 +108,7 @@ const TEA_DATA = [
   },
   {
     id: 11, name: 'Sheng Pu-erh (Raw)', chinese: '生普洱', category: 'Pu-erh',
-    region: 'Yunnan', temp: 95, steepTime: '15-30s', gramsper100ml: 7,
+    region: 'Yunnan', temp: 95, steepTime: '5-7s', gramsper100ml: 7,
     flavorNotes: ['astringent', 'floral', 'evolving'],
     processing: 'Sun-dried and naturally aged over years',
     brewingVessel: 'Yixing teapot',
@@ -118,7 +118,7 @@ const TEA_DATA = [
   },
   {
     id: 12, name: 'Shu Pu-erh (Ripe)', chinese: '熟普洱', category: 'Pu-erh',
-    region: 'Yunnan', temp: 100, steepTime: '15-30s', gramsper100ml: 7,
+    region: 'Yunnan', temp: 100, steepTime: '5-7s', gramsper100ml: 7,
     flavorNotes: ['earthy', 'chocolate', 'smooth'],
     processing: 'Wet-piled (wo dui) for accelerated fermentation',
     brewingVessel: 'Yixing teapot',
@@ -128,7 +128,7 @@ const TEA_DATA = [
   },
   {
     id: 13, name: 'Jun Shan Yin Zhen', chinese: '君山银针', category: 'Yellow',
-    region: 'Junshan Island, Hunan', temp: 80, steepTime: '60-90s', gramsper100ml: 3,
+    region: 'Junshan Island, Hunan', temp: 75, steepTime: '15-30s', gramsper100ml: 4,
     flavorNotes: ['mellow', 'sweet corn', 'smooth'],
     processing: 'Sealed yellowing (men huang) after pan-firing',
     brewingVessel: 'Glass cup',
@@ -138,7 +138,7 @@ const TEA_DATA = [
   },
   {
     id: 14, name: 'Jasmine Pearl', chinese: '茉莉龙珠', category: 'Scented',
-    region: 'Fuzhou, Fujian', temp: 85, steepTime: '60-90s', gramsper100ml: 4,
+    region: 'Fuzhou, Fujian', temp: 85, steepTime: '5-10s', gramsper100ml: 3,
     flavorNotes: ['jasmine', 'sweet', 'round'],
     processing: 'Green tea base scented with fresh jasmine flowers',
     brewingVessel: 'Gaiwan',
@@ -148,7 +148,7 @@ const TEA_DATA = [
   },
   {
     id: 15, name: 'Osmanthus Oolong', chinese: '桂花乌龙', category: 'Scented',
-    region: 'Fujian / Taiwan', temp: 90, steepTime: '45-60s', gramsper100ml: 5,
+    region: 'Fujian / Taiwan', temp: 90, steepTime: '5-10s', gramsper100ml: 5,
     flavorNotes: ['osmanthus', 'peach', 'honeyed'],
     processing: 'Oolong base blended with osmanthus flowers',
     brewingVessel: 'Gaiwan',
