@@ -111,3 +111,23 @@
 .animate-tea-fade {
   animation: teaColorFade 2s ease-in forwards;
 }
+
+@keyframes cardFlip {
+  0% { transform: scaleX(1); }
+  50% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.animate-flip {
+  animation: cardFlip 0.3s ease-in-out;
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}

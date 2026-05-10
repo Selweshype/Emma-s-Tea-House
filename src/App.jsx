@@ -200,6 +200,318 @@ const EMMA_MESSAGES = {
   },
 };
 
+// ═══════════════════════════════════════════════════════════
+// SECTION 1.5: TEA LEARNING MODULE DATA
+// ═══════════════════════════════════════════════════════════
+
+const LESSON_DATA = [
+  {
+    id: 'tea-families',
+    title: 'Tea Families',
+    description: 'The 7 Chinese tea categories',
+    requiredModules: [],
+    steps: [
+      {
+        emmaText: "Welcome! Let me introduce you to the 7 families of Chinese tea. Tap each card to learn about them!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: 'Green Tea', back: 'Unoxidized (0%). Fresh, vegetal flavors. Pan-fired or steamed to halt oxidation immediately.', category: 'Green' },
+          { front: 'White Tea', back: 'Minimal processing (5-10% oxidation). Simply withered and sun-dried. Delicate and subtle.', category: 'White' },
+          { front: 'Yellow Tea', back: 'Lightly oxidized (10-15%). A rare tea with a unique "sealed yellowing" step that mellows the flavor.', category: 'Yellow' },
+          { front: 'Oolong Tea', back: 'Partially oxidized (25-70%). The widest range — from light and floral to dark and roasted.', category: 'Oolong' },
+          { front: 'Black Tea', back: 'Fully oxidized (100%). Bold, malty, and robust. Called "red tea" (hong cha) in Chinese.', category: 'Black' },
+          { front: 'Pu-erh Tea', back: 'Aged or fermented. Can be raw (sheng) or ripe (shu). The only tea that improves with decades of aging.', category: 'Pu-erh' },
+          { front: 'Scented Tea', back: 'A base tea (usually green or oolong) scented with fresh flowers like jasmine or osmanthus.', category: 'Scented' },
+        ]}
+      },
+      {
+        emmaText: "Oxidation is the key! It's what makes each tea family unique. Can you sort these from least to most oxidized?",
+        type: 'sortExercise',
+        config: {
+          items: ['Green (0%)', 'White (5-10%)', 'Yellow (10-15%)', 'Oolong (25-70%)', 'Black (100%)', 'Pu-erh (varies)'],
+          correctOrder: ['Green (0%)', 'White (5-10%)', 'Yellow (10-15%)', 'Oolong (25-70%)', 'Black (100%)', 'Pu-erh (varies)'],
+        }
+      },
+      {
+        emmaText: "Each family has signature flavors. Can you match the tea family to its hallmark taste?",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: 'Green', right: 'Vegetal & fresh' },
+          { left: 'Oolong', right: 'Floral & toasty' },
+          { left: 'Black', right: 'Malty & bold' },
+          { left: 'White', right: 'Delicate & sweet' },
+          { left: 'Pu-erh', right: 'Earthy & smooth' },
+        ]}
+      },
+      {
+        emmaText: "Now let's see how leaves become each type of tea! Tap to reveal the processing method.",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: 'Pan-fired in a wok', back: 'This makes Green Tea! Heat stops oxidation immediately.', category: 'Green' },
+          { front: 'Withered and sun-dried', back: 'This makes White Tea! Minimal handling preserves natural character.', category: 'White' },
+          { front: 'Sealed yellowing (men huang)', back: 'This makes Yellow Tea! Damp leaves wrapped in cloth create a unique mellow flavor.', category: 'Yellow' },
+          { front: 'Partial oxidation + roasting', back: 'This makes Oolong Tea! The master controls oxidation level for incredible variety.', category: 'Oolong' },
+          { front: 'Full oxidation + slow drying', back: 'This makes Black Tea! Complete oxidation creates bold, rich flavors.', category: 'Black' },
+          { front: 'Aged or wet-piled fermentation', back: 'This makes Pu-erh Tea! Time (or accelerated fermentation) transforms the leaf.', category: 'Pu-erh' },
+        ]}
+      },
+      {
+        emmaText: "Scented teas are special! They combine a base tea with fresh flowers. Let's test what you know!",
+        type: 'fillInBlank',
+        config: { questions: [
+          { statement: 'Jasmine Pearl uses a ___ tea base', choices: ['Black', 'Green', 'Oolong', 'White'], correctIndex: 1, explanation: 'Jasmine Pearl is made with green tea leaves scented with fresh jasmine flowers!' },
+          { statement: 'Osmanthus Oolong combines osmanthus flowers with ___ tea', choices: ['Green', 'Black', 'Oolong', 'White'], correctIndex: 2, explanation: 'The name says it all — Osmanthus Oolong uses an oolong base!' },
+        ]}
+      },
+    ],
+    quiz: [
+      { prompt: 'What type of tea is Dragon Well (Longjing)?', choices: ['Black', 'Green', 'Oolong', 'White'], correctIndex: 1, explanation: 'Dragon Well is a pan-fired Green tea from Hangzhou, Zhejiang.' },
+      { prompt: 'Which tea family has the widest range of oxidation levels?', choices: ['Green', 'White', 'Oolong', 'Black'], correctIndex: 2, explanation: 'Oolong ranges from 25-70% oxidation — light and floral to dark and roasted!' },
+      { prompt: 'What is the hallmark flavor of Pu-erh tea?', choices: ['Vegetal & fresh', 'Malty & bold', 'Earthy & smooth', 'Floral & toasty'], correctIndex: 2, explanation: 'Pu-erh is known for its earthy, smooth character from aging or fermentation.' },
+      { prompt: 'Which processing step is unique to Yellow tea?', choices: ['Pan-firing', 'Smoke-drying', 'Sealed yellowing', 'Wet-piling'], correctIndex: 2, explanation: 'Men huang (sealed yellowing) is the step that makes yellow tea unique!' },
+    ]
+  },
+  {
+    id: 'regions-terroir',
+    title: 'Regions & Terroir',
+    description: 'Where teas grow and why it matters',
+    requiredModules: ['tea-families'],
+    steps: [
+      {
+        emmaText: "China is vast, and each region gives its tea a unique character! The soil, climate, and altitude all matter — we call this terroir. Let me show you the major tea regions!",
+        type: 'narrative',
+        config: {}
+      },
+      {
+        emmaText: "Fujian province is a tea powerhouse! So many famous teas come from here. Tap each to learn more!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: `${TEA_DATA[2].name}`, back: `${TEA_DATA[2].region}. ${TEA_DATA[2].terroir}`, category: 'Oolong' },
+          { front: `${TEA_DATA[3].name}`, back: `${TEA_DATA[3].region}. ${TEA_DATA[3].terroir}`, category: 'Oolong' },
+          { front: `${TEA_DATA[8].name}`, back: `${TEA_DATA[8].region}. ${TEA_DATA[8].terroir}`, category: 'White' },
+          { front: `${TEA_DATA[6].name}`, back: `${TEA_DATA[6].region}. ${TEA_DATA[6].terroir}`, category: 'Black' },
+          { front: `${TEA_DATA[13].name}`, back: `${TEA_DATA[13].region}. ${TEA_DATA[13].terroir}`, category: 'Scented' },
+        ]}
+      },
+      {
+        emmaText: "Yunnan is home to ancient tea trees — some over 1,000 years old! Its unique terroir produces very special teas.",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: `${TEA_DATA[7].name}`, back: `${TEA_DATA[7].region}. ${TEA_DATA[7].terroir}`, category: 'Black' },
+          { front: `${TEA_DATA[10].name}`, back: `${TEA_DATA[10].region}. ${TEA_DATA[10].terroir}`, category: 'Pu-erh' },
+          { front: `${TEA_DATA[11].name}`, back: `${TEA_DATA[11].region}. ${TEA_DATA[11].terroir}`, category: 'Pu-erh' },
+        ]}
+      },
+      {
+        emmaText: "Terroir shapes flavor! Can you match the terroir description to the right tea?",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: TEA_DATA[3].name, right: 'Rocky crevices in Wuyi cliffs' },
+          { left: TEA_DATA[8].name, right: 'Coastal hillsides with ocean breezes' },
+          { left: TEA_DATA[0].name, right: 'Misty lake region with mineral-rich soil' },
+          { left: TEA_DATA[12].name, right: 'Island in Dongting Lake with fertile soil' },
+        ]}
+      },
+      {
+        emmaText: "Now sort these teas by their home region! Fujian, Yunnan, or somewhere else?",
+        type: 'sortExercise',
+        config: {
+          items: [TEA_DATA[2].name, TEA_DATA[7].name, TEA_DATA[0].name, TEA_DATA[10].name, TEA_DATA[5].name, TEA_DATA[12].name],
+          buckets: ['Fujian', 'Yunnan', 'Other'],
+          correctBuckets: { [TEA_DATA[2].name]: 'Fujian', [TEA_DATA[7].name]: 'Yunnan', [TEA_DATA[0].name]: 'Other', [TEA_DATA[10].name]: 'Yunnan', [TEA_DATA[5].name]: 'Other', [TEA_DATA[12].name]: 'Other' },
+        }
+      },
+    ],
+    quiz: [
+      { prompt: `Where is ${TEA_DATA[3].name} from?`, choices: ['Yunnan', 'Wuyi Mountains, Fujian', 'Hangzhou, Zhejiang', 'Anxi, Fujian'], correctIndex: 1, explanation: `${TEA_DATA[3].name} comes from the Wuyi Mountains in Fujian province.` },
+      { prompt: 'Which region is known for ancient tea trees over 1,000 years old?', choices: ['Fujian', 'Zhejiang', 'Yunnan', 'Hunan'], correctIndex: 2, explanation: 'Yunnan is home to ancient tea forests with trees over a millennium old!' },
+      { prompt: `What terroir feature defines ${TEA_DATA[3].name}?`, choices: ['Coastal hillsides', 'Mineral-rich rocky crevices', 'Ancient forests', 'Lake island'], correctIndex: 1, explanation: `${TEA_DATA[3].name} grows in mineral-rich rocky crevices (yan cha) in the Wuyi cliffs.` },
+      { prompt: `Which tea grows on a small island in Dongting Lake?`, choices: [TEA_DATA[0].name, TEA_DATA[12].name, TEA_DATA[8].name, TEA_DATA[1].name], correctIndex: 1, explanation: `${TEA_DATA[12].name} grows on Junshan Island in Dongting Lake, Hunan.` },
+    ]
+  },
+  {
+    id: 'brewing-mastery',
+    title: 'Brewing Mastery',
+    description: 'Temperature, leaf amount & vessels',
+    requiredModules: ['tea-families'],
+    steps: [
+      {
+        emmaText: "Delicate teas need cooler water, while robust teas love the heat! Sort these teas from coolest to hottest brewing temperature.",
+        type: 'sortExercise',
+        config: {
+          items: [`${TEA_DATA[1].name} (${TEA_DATA[1].temp}°C)`, `${TEA_DATA[8].name} (${TEA_DATA[8].temp}°C)`, `${TEA_DATA[2].name} (${TEA_DATA[2].temp}°C)`, `${TEA_DATA[4].name} (${TEA_DATA[4].temp}°C)`, `${TEA_DATA[11].name} (${TEA_DATA[11].temp}°C)`],
+          correctOrder: [`${TEA_DATA[1].name} (${TEA_DATA[1].temp}°C)`, `${TEA_DATA[8].name} (${TEA_DATA[8].temp}°C)`, `${TEA_DATA[2].name} (${TEA_DATA[2].temp}°C)`, `${TEA_DATA[4].name} (${TEA_DATA[4].temp}°C)`, `${TEA_DATA[11].name} (${TEA_DATA[11].temp}°C)`],
+        }
+      },
+      {
+        emmaText: "Different teas need different amounts of leaf. Match each tea to its ideal grams per 100ml!",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: TEA_DATA[0].name, right: `${TEA_DATA[0].gramsper100ml}g / 100ml` },
+          { left: TEA_DATA[3].name, right: `${TEA_DATA[3].gramsper100ml}g / 100ml` },
+          { left: TEA_DATA[8].name, right: `${TEA_DATA[8].gramsper100ml}g / 100ml` },
+          { left: TEA_DATA[10].name, right: `${TEA_DATA[10].gramsper100ml}g / 100ml` },
+        ]}
+      },
+      {
+        emmaText: "There are three main brewing vessels in Chinese tea culture. Tap each to learn when and why to use it!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: 'Glass Cup', back: 'Best for delicate green and yellow teas. Lets you watch the beautiful leaves unfurl and dance!', category: 'Green' },
+          { front: 'Gaiwan', back: 'The most versatile vessel! A lidded bowl perfect for oolongs, whites, and scented teas. Great for gong fu brewing.', category: 'Oolong' },
+          { front: 'Yixing Teapot', back: 'Unglazed clay that absorbs tea oils over time. Best for bold teas like Pu-erh and heavy oolongs. Each pot is dedicated to one type of tea!', category: 'Pu-erh' },
+        ]}
+      },
+      {
+        emmaText: "Now match each tea to its ideal brewing vessel!",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: TEA_DATA[0].name, right: TEA_DATA[0].brewingVessel },
+          { left: TEA_DATA[2].name, right: TEA_DATA[2].brewingVessel },
+          { left: TEA_DATA[3].name, right: TEA_DATA[3].brewingVessel },
+          { left: TEA_DATA[10].name, right: TEA_DATA[10].brewingVessel },
+        ]}
+      },
+      {
+        emmaText: "In gong fu cha, steeps are quick — just a few seconds! Let's see if you know the times.",
+        type: 'fillInBlank',
+        config: { questions: [
+          { statement: `${TEA_DATA[8].name} first steep is about ___`, choices: ['5-10s', '10-15s', '30-60s', '90-120s'], correctIndex: 1, explanation: `${TEA_DATA[8].name} needs ${TEA_DATA[8].steepTime} — the buds are delicate and need a gentle first steep!` },
+          { statement: `${TEA_DATA[3].name} first steep is about ___`, choices: ['5-8s', '20-30s', '45-60s', '90s+'], correctIndex: 0, explanation: `${TEA_DATA[3].name} steeps for just ${TEA_DATA[3].steepTime} in gong fu style — quick and intense!` },
+          { statement: `${TEA_DATA[0].name} first steep is about ___`, choices: ['1-2s', '5-10s', '30-45s', '60-90s'], correctIndex: 1, explanation: `${TEA_DATA[0].name} steeps for ${TEA_DATA[0].steepTime} — green teas are brewed quickly at a lower temperature!` },
+        ]}
+      },
+    ],
+    quiz: [
+      { prompt: `What temperature is best for ${TEA_DATA[1].name}?`, choices: ['75°C', '85°C', '95°C', '100°C'], correctIndex: 0, explanation: `${TEA_DATA[1].name} is a delicate green tea brewed at ${TEA_DATA[1].temp}°C.` },
+      { prompt: 'Which vessel is best for Pu-erh tea?', choices: ['Glass cup', 'Gaiwan', 'Yixing teapot', 'Metal pot'], correctIndex: 2, explanation: 'Yixing clay absorbs tea oils over time, making it perfect for bold Pu-erh!' },
+      { prompt: `How many grams per 100ml for ${TEA_DATA[3].name}?`, choices: ['3g', '5g', '7g', '10g'], correctIndex: 2, explanation: `${TEA_DATA[3].name} uses ${TEA_DATA[3].gramsper100ml}g per 100ml — oolongs need a generous amount!` },
+      { prompt: 'Why use a glass cup for green tea?', choices: ['It keeps tea hotter', 'You can watch the leaves dance', 'It adds flavor', 'It brews faster'], correctIndex: 1, explanation: 'A glass cup lets you enjoy the beautiful sight of green tea leaves unfurling!' },
+    ]
+  },
+  {
+    id: 'processing-craft',
+    title: 'Processing & Craft',
+    description: 'How leaves become tea',
+    requiredModules: ['regions-terroir', 'brewing-mastery'],
+    steps: [
+      {
+        emmaText: "Every tea starts as the same green leaf from the Camellia sinensis plant. It's the processing that makes each tea unique! The key steps are: withering, rolling, oxidation, firing, and drying.",
+        type: 'narrative',
+        config: {}
+      },
+      {
+        emmaText: "Green tea is all about stopping oxidation quickly! But there are different ways to do it. Tap to compare!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: `${TEA_DATA[0].name}`, back: `${TEA_DATA[0].processing}. This creates its signature flat, smooth leaves and chestnut flavor.`, category: 'Green' },
+          { front: `${TEA_DATA[1].name}`, back: `${TEA_DATA[1].processing}. The tiny spiral-shaped leaves have a fruity, floral character.`, category: 'Green' },
+        ]}
+      },
+      {
+        emmaText: "Oolong is the art of partial oxidation — the master decides exactly when to stop! Match each oolong to its oxidation and roast level.",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: TEA_DATA[2].name, right: TEA_DATA[2].oxidation },
+          { left: TEA_DATA[3].name, right: TEA_DATA[3].oxidation },
+          { left: TEA_DATA[4].name, right: TEA_DATA[4].oxidation },
+        ]}
+      },
+      {
+        emmaText: "Pu-erh is alive! It transforms over time. There are two very different types. Tap to explore!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: `${TEA_DATA[10].name}`, back: `${TEA_DATA[10].processing}. Starts astringent and floral, evolves over decades into something rich and complex. ${TEA_DATA[10].oxidation}.`, category: 'Pu-erh' },
+          { front: `${TEA_DATA[11].name}`, back: `${TEA_DATA[11].processing}. Invented in 1973 to simulate decades of aging in just 45-60 days! ${TEA_DATA[11].oxidation}.`, category: 'Pu-erh' },
+        ]}
+      },
+      {
+        emmaText: "Yellow tea has a secret step that no other tea family uses!",
+        type: 'fillInBlank',
+        config: { questions: [
+          { statement: "Yellow tea's unique processing step is called ___", choices: ['Pan-firing', 'Sealed yellowing (men huang)', 'Wet-piling', 'Smoke-drying'], correctIndex: 1, explanation: 'Men huang (sealed yellowing) wraps damp leaves in cloth, creating a mellow, sweet flavor unique to yellow tea!' },
+          { statement: `${TEA_DATA[6].name} gets its smoky flavor from ___`, choices: ['Charcoal roasting', 'Sun exposure', 'Smoke-drying over pinewood fires', 'Adding spices'], correctIndex: 2, explanation: `${TEA_DATA[6].name} is smoke-dried over pinewood fires — it's how this legendary tea was born!` },
+        ]}
+      },
+      {
+        emmaText: "Can you identify which tea uses each processing method?",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: TEA_DATA[0].processing, right: TEA_DATA[0].name },
+          { left: TEA_DATA[6].processing, right: TEA_DATA[6].name },
+          { left: TEA_DATA[11].processing, right: TEA_DATA[11].name },
+          { left: TEA_DATA[12].processing, right: TEA_DATA[12].name },
+        ]}
+      },
+    ],
+    quiz: [
+      { prompt: `What is ${TEA_DATA[0].name}'s processing method?`, choices: ['Hand-rolled and pan-fired', 'Pan-fired in a wok to halt oxidation', 'Withered and sun-dried', 'Smoke-dried over pinewood fires'], correctIndex: 1, explanation: `${TEA_DATA[0].name} is pan-fired in a wok by hand to immediately stop oxidation.` },
+      { prompt: `What is the oxidation level of ${TEA_DATA[3].name}?`, choices: ['Unoxidized (0%)', 'Light-medium (25-40%)', 'Heavy (60-70%)', 'Fully oxidized (100%)'], correctIndex: 2, explanation: `${TEA_DATA[3].name} undergoes heavy oxidation at 60-70%, followed by roasting.` },
+      { prompt: 'Which tea is made by wet-piling (wo dui) for accelerated fermentation?', choices: [TEA_DATA[10].name, TEA_DATA[11].name, TEA_DATA[3].name, TEA_DATA[12].name], correctIndex: 1, explanation: `${TEA_DATA[11].name} uses wet-piling to simulate decades of aging in just 45-60 days!` },
+      { prompt: 'What makes Lapsang Souchong unique among black teas?', choices: ['It uses ancient tree leaves', 'It is smoke-dried over pinewood fires', 'It undergoes sealed yellowing', 'It is partially oxidized'], correctIndex: 1, explanation: 'Lapsang Souchong is the original smoked tea — dried over pinewood fires in the Wuyi Mountains.' },
+      { prompt: `Which processing step does ${TEA_DATA[12].name} use that other teas do not?`, choices: ['Wet-piling', 'Smoke-drying', 'Sealed yellowing (men huang)', 'Pan-firing'], correctIndex: 2, explanation: 'As a Yellow tea, Jun Shan Yin Zhen uses the unique sealed yellowing step!' },
+    ]
+  },
+  {
+    id: 'tea-master',
+    title: "Tea Master's Journey",
+    description: 'The ultimate tea challenge',
+    requiredModules: ['tea-families', 'regions-terroir', 'brewing-mastery', 'processing-craft'],
+    steps: [
+      {
+        emmaText: "You've come so far on your tea journey! You've mastered the families, regions, brewing, and processing. Now it's time for the Tea Master's challenge!",
+        type: 'narrative',
+        config: {}
+      },
+      {
+        emmaText: "Terroir and processing work together. Can you match the terroir to the flavor it creates?",
+        type: 'matchPairs',
+        config: { pairs: [
+          { left: 'Rocky Wuyi cliff crevices', right: 'Mineral & roasted notes' },
+          { left: 'Coastal Fuding hillsides', right: 'Delicate melon & hay' },
+          { left: 'High-altitude Yunnan forests', right: 'Malty & peppery depth' },
+          { left: 'Misty Hangzhou lake region', right: 'Chestnut & sweet vegetal' },
+        ]}
+      },
+      {
+        emmaText: "I'll give you a fun fact — can you guess which tea it describes? Tap to check!",
+        type: 'tapReveal',
+        config: { cards: [
+          { front: 'Over 80,000 hand-picked buds per kilogram', back: `That's ${TEA_DATA[1].name}! Grown among fruit orchards in Suzhou.`, category: 'Green' },
+          { front: 'Original mother trees are over 350 years old', back: `That's ${TEA_DATA[3].name}! The most expensive tea in history.`, category: 'Oolong' },
+          { front: 'Can only be harvested during a few days in early spring', back: `That's ${TEA_DATA[8].name}! Made only from unopened buds covered in white hairs.`, category: 'White' },
+          { front: 'Was tribute tea for Chinese emperors', back: `That's ${TEA_DATA[12].name}! A rare Yellow tea from Junshan Island.`, category: 'Yellow' },
+          { front: 'Invented in 1973 using "wet piling" technique', back: `That's ${TEA_DATA[11].name}! Simulates decades of aging in 45-60 days.`, category: 'Pu-erh' },
+        ]}
+      },
+      {
+        emmaText: "The oxidation spectrum challenge! Arrange these teas from least to most oxidized using their exact percentages.",
+        type: 'sortExercise',
+        config: {
+          items: [`${TEA_DATA[0].name} - ${TEA_DATA[0].oxidation}`, `${TEA_DATA[8].name} - ${TEA_DATA[8].oxidation}`, `${TEA_DATA[2].name} - ${TEA_DATA[2].oxidation}`, `${TEA_DATA[3].name} - ${TEA_DATA[3].oxidation}`, `${TEA_DATA[5].name} - ${TEA_DATA[5].oxidation}`],
+          correctOrder: [`${TEA_DATA[0].name} - ${TEA_DATA[0].oxidation}`, `${TEA_DATA[8].name} - ${TEA_DATA[8].oxidation}`, `${TEA_DATA[2].name} - ${TEA_DATA[2].oxidation}`, `${TEA_DATA[3].name} - ${TEA_DATA[3].oxidation}`, `${TEA_DATA[5].name} - ${TEA_DATA[5].oxidation}`],
+        }
+      },
+      {
+        emmaText: "The ultimate challenge! I'll give you clues — can you name the tea?",
+        type: 'fillInBlank',
+        config: { questions: [
+          { statement: 'From Wuyi Mountains, Fujian. Smoke-dried over pinewood fires. Fully oxidized.', choices: [TEA_DATA[5].name, TEA_DATA[6].name, TEA_DATA[3].name, TEA_DATA[7].name], correctIndex: 1, explanation: `${TEA_DATA[6].name} — the original smoked black tea from the Wuyi Mountains!` },
+          { statement: 'From Anxi, Fujian. Partially oxidized, then rolled and roasted. Named after a goddess.', choices: [TEA_DATA[3].name, TEA_DATA[4].name, TEA_DATA[2].name, TEA_DATA[14].name], correctIndex: 2, explanation: `${TEA_DATA[2].name} — named after the Iron Goddess of Mercy (Guanyin)!` },
+          { statement: 'From Yunnan. Sun-dried and naturally aged. Flavor evolves over decades.', choices: [TEA_DATA[7].name, TEA_DATA[11].name, TEA_DATA[10].name, TEA_DATA[4].name], correctIndex: 2, explanation: `${TEA_DATA[10].name} — a living tea that transforms over decades of natural aging!` },
+        ]}
+      },
+    ],
+    quiz: [
+      { prompt: 'Which terroir produces mineral and roasted notes?', choices: ['Coastal Fuding hillsides', 'Rocky Wuyi cliff crevices', 'Ancient Yunnan forests', 'Misty Hangzhou lake region'], correctIndex: 1, explanation: 'The mineral-rich rocky crevices of Wuyi give teas like Da Hong Pao their distinctive mineral notes.' },
+      { prompt: `What flavor does ${TEA_DATA[8].name}'s coastal terroir contribute?`, choices: ['Smoky & bold', 'Malty & peppery', 'Melon & hay', 'Chestnut & sweet'], correctIndex: 2, explanation: `The ocean breezes and misty springs of Fuding give ${TEA_DATA[8].name} its delicate melon and hay notes.` },
+      { prompt: 'Which tea was considered the most expensive, at $28,000 for 20 grams?', choices: [TEA_DATA[8].name, TEA_DATA[10].name, TEA_DATA[3].name, TEA_DATA[12].name], correctIndex: 2, explanation: `${TEA_DATA[3].name}'s original mother trees produced tea worth $28,000 for just 20 grams in 2005!` },
+      { prompt: `Arrange from least to most oxidized: White, Oolong, Green`, choices: ['Green, White, Oolong', 'White, Green, Oolong', 'Green, Oolong, White', 'Oolong, White, Green'], correctIndex: 0, explanation: 'Green (0%) has the least oxidation, followed by White (5-10%), then Oolong (25-70%).' },
+      { prompt: 'From Junshan Island, sealed yellowing process, tribute tea for emperors.', choices: [TEA_DATA[8].name, TEA_DATA[0].name, TEA_DATA[12].name, TEA_DATA[1].name], correctIndex: 2, explanation: `${TEA_DATA[12].name} — a rare Yellow tea from a small island, once reserved for emperors!` },
+    ]
+  },
+];
+
 
 // ═══════════════════════════════════════════════════════════
 // SECTION 2: PIXEL ART SPRITES & COMPONENTS
@@ -504,6 +816,451 @@ function ProgressBar({ current, total, label }) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// SECTION 3.5: TEA LEARNING INTERACTIVE COMPONENTS
+// ═══════════════════════════════════════════════════════════
+
+function TapRevealCards({ config, onComplete, onBounce }) {
+  const [revealed, setRevealed] = useState({});
+  const allRevealed = config.cards.every((_, i) => revealed[i]);
+
+  useEffect(() => { if (allRevealed) onComplete(); }, [allRevealed]);
+
+  const handleTap = (i) => {
+    if (revealed[i]) return;
+    setRevealed(prev => ({ ...prev, [i]: true }));
+    onBounce();
+  };
+
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {config.cards.map((card, i) => (
+        <div key={i} onClick={() => handleTap(i)}
+          className={`pixel-border p-3 cursor-pointer transition-all ${revealed[i] ? 'bg-white' : 'bg-tea-cream hover:bg-tea-gold/20'} ${revealed[i] ? 'animate-flip' : ''}`}>
+          {!revealed[i] ? (
+            <div className="text-center">
+              {card.category && <span className={`inline-block px-2 py-0.5 rounded text-[7px] font-pixel mb-1 ${CATEGORY_COLORS[card.category] || 'bg-gray-300'}`}>{card.category}</span>}
+              <p className="font-pixel text-[9px] text-tea-ink">{card.front}</p>
+              <p className="font-pixel text-[7px] text-gray-400 mt-1">tap to reveal</p>
+            </div>
+          ) : (
+            <div className="text-center">
+              <p className="font-pixel text-[7px] text-tea-wood leading-relaxed">{card.back}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SortExercise({ config, onComplete, onBounce }) {
+  const [items, setItems] = useState(() => {
+    if (config.buckets) return config.items.map(item => ({ name: item, bucket: null }));
+    const shuffled = [...config.items];
+    for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+    return shuffled;
+  });
+  const [selected, setSelected] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [correct, setCorrect] = useState(null);
+
+  const handleSwap = (i) => {
+    if (checked || config.buckets) return;
+    if (selected === null) { setSelected(i); return; }
+    if (selected === i) { setSelected(null); return; }
+    setItems(prev => { const next = [...prev]; [next[selected], next[i]] = [next[i], next[selected]]; return next; });
+    setSelected(null);
+  };
+
+  const handleBucketAssign = (itemIdx, bucket) => {
+    setItems(prev => prev.map((item, i) => i === itemIdx ? { ...item, bucket } : item));
+  };
+
+  const handleCheck = () => {
+    let isCorrect;
+    if (config.buckets) {
+      isCorrect = items.every(item => item.bucket === config.correctBuckets[item.name]);
+    } else {
+      isCorrect = items.every((item, i) => item === config.correctOrder[i]);
+    }
+    setChecked(true);
+    setCorrect(isCorrect);
+    if (isCorrect) { onBounce(); onComplete(); }
+  };
+
+  const handleRetry = () => { setChecked(false); setCorrect(null); setSelected(null); };
+
+  if (config.buckets) {
+    return (
+      <div>
+        <div className="flex flex-wrap gap-1 mb-3">
+          {items.map((item, i) => (
+            <div key={i} className="pixel-border p-2 bg-white">
+              <p className="font-pixel text-[8px] text-tea-ink mb-1">{item.name}</p>
+              <div className="flex gap-1">
+                {config.buckets.map(bucket => (
+                  <button key={bucket} onClick={() => handleBucketAssign(i, bucket)}
+                    className={`font-pixel text-[7px] px-2 py-0.5 pixel-border cursor-pointer ${item.bucket === bucket ? 'bg-tea-jade text-white' : 'bg-gray-100'} ${checked && item.bucket === config.correctBuckets[item.name] ? 'bg-tea-jade text-white' : ''} ${checked && item.bucket && item.bucket !== config.correctBuckets[item.name] ? 'bg-red-300 animate-shake' : ''}`}>
+                    {bucket}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        {!checked && <PixelButton onClick={handleCheck} variant="primary" className="w-full">Check Answer</PixelButton>}
+        {checked && !correct && <PixelButton onClick={handleRetry} variant="secondary" className="w-full">Try Again</PixelButton>}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="flex flex-col gap-1 mb-3">
+        {items.map((item, i) => (
+          <button key={i} onClick={() => handleSwap(i)}
+            className={`pixel-border p-2 font-pixel text-[8px] text-left cursor-pointer transition-all ${selected === i ? 'bg-tea-gold text-white' : 'bg-white'} ${checked && correct ? 'bg-green-100' : ''} ${checked && !correct ? 'animate-shake' : ''}`}>
+            <span className="text-gray-400 mr-2">{i + 1}.</span>{item}
+          </button>
+        ))}
+      </div>
+      <p className="font-pixel text-[7px] text-gray-400 text-center mb-2">Tap two items to swap their positions</p>
+      {!checked && <PixelButton onClick={handleCheck} variant="primary" className="w-full">Check Order</PixelButton>}
+      {checked && !correct && <PixelButton onClick={handleRetry} variant="secondary" className="w-full">Try Again</PixelButton>}
+    </div>
+  );
+}
+
+function MatchPairs({ config, onComplete, onBounce }) {
+  const [shuffledRight] = useState(() => {
+    const arr = config.pairs.map(p => p.right);
+    for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+    return arr;
+  });
+  const [selectedLeft, setSelectedLeft] = useState(null);
+  const [matched, setMatched] = useState({});
+  const [wrong, setWrong] = useState(null);
+
+  const allMatched = Object.keys(matched).length === config.pairs.length;
+  useEffect(() => { if (allMatched) onComplete(); }, [allMatched]);
+
+  const handleRight = (rightVal) => {
+    if (selectedLeft === null || matched[selectedLeft] || Object.values(matched).includes(rightVal)) return;
+    const pair = config.pairs.find(p => p.left === selectedLeft);
+    if (pair && pair.right === rightVal) {
+      setMatched(prev => ({ ...prev, [selectedLeft]: rightVal }));
+      onBounce();
+      setSelectedLeft(null);
+    } else {
+      setWrong(rightVal);
+      setTimeout(() => { setWrong(null); setSelectedLeft(null); }, 500);
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      <div className="flex flex-col gap-1">
+        {config.pairs.map((pair, i) => (
+          <button key={i} onClick={() => !matched[pair.left] && setSelectedLeft(pair.left)}
+            className={`pixel-border p-2 font-pixel text-[8px] cursor-pointer transition-all ${matched[pair.left] ? 'bg-green-100 border-green-500' : selectedLeft === pair.left ? 'bg-tea-gold text-white' : 'bg-white hover:bg-tea-cream'}`}>
+            {matched[pair.left] && <Check size={10} className="inline mr-1 text-green-600" />}
+            {pair.left}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-col gap-1">
+        {shuffledRight.map((right, i) => (
+          <button key={i} onClick={() => handleRight(right)}
+            className={`pixel-border p-2 font-pixel text-[8px] cursor-pointer transition-all ${Object.values(matched).includes(right) ? 'bg-green-100 border-green-500' : wrong === right ? 'bg-red-200 animate-shake' : 'bg-white hover:bg-tea-cream'}`}>
+            {right}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FillInBlank({ config, onComplete, onBounce }) {
+  const [currentQ, setCurrentQ] = useState(0);
+  const [answered, setAnswered] = useState(null);
+  const q = config.questions[currentQ];
+
+  const handleChoice = (idx) => {
+    if (answered !== null) return;
+    setAnswered(idx);
+    if (idx === q.correctIndex) onBounce();
+  };
+
+  const handleNext = () => {
+    if (currentQ + 1 < config.questions.length) {
+      setCurrentQ(prev => prev + 1);
+      setAnswered(null);
+    } else {
+      onComplete();
+    }
+  };
+
+  return (
+    <div>
+      <div className="pixel-border p-4 bg-white mb-3">
+        <p className="font-pixel text-[9px] text-tea-ink leading-relaxed">
+          {q.statement.replace('___', answered !== null ? q.choices[answered] : '______')}
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-2 mb-3">
+        {q.choices.map((choice, i) => (
+          <button key={i} onClick={() => handleChoice(i)}
+            className={`pixel-border p-2 font-pixel text-[8px] cursor-pointer transition-all ${answered === null ? 'bg-white hover:bg-tea-cream' : i === q.correctIndex ? 'bg-green-200' : answered === i ? 'bg-red-200' : 'bg-white opacity-50'}`}>
+            {choice}
+          </button>
+        ))}
+      </div>
+      {answered !== null && (
+        <div className="pixel-border-inset bg-tea-cream p-2 mb-2">
+          <p className="font-pixel text-[7px] text-tea-wood">{q.explanation}</p>
+        </div>
+      )}
+      {answered !== null && (
+        <PixelButton onClick={handleNext} variant="primary" className="w-full">
+          {currentQ + 1 < config.questions.length ? 'Next' : 'Continue'}
+        </PixelButton>
+      )}
+    </div>
+  );
+}
+
+function LessonQuiz({ questions, onPass, onRetry }) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [done, setDone] = useState(false);
+
+  const q = questions[currentIdx];
+  const passThreshold = Math.ceil(questions.length * 0.6);
+
+  const handleAnswer = (idx) => {
+    if (selected !== null) return;
+    setSelected(idx);
+    if (idx === q.correctIndex) setScore(prev => prev + 1);
+  };
+
+  const handleNext = () => {
+    if (currentIdx + 1 < questions.length) {
+      setCurrentIdx(prev => prev + 1);
+      setSelected(null);
+    } else {
+      setDone(true);
+    }
+  };
+
+  if (done) {
+    const passed = score >= passThreshold;
+    return (
+      <div className="text-center">
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <EmmaCharacter scale={2} bounce={passed} />
+          <TeaPet scale={2} bounce={passed} />
+        </div>
+        <div className="pixel-border p-4 bg-white mb-3">
+          {passed ? <Trophy size={24} className="mx-auto text-tea-gold mb-2" /> : <Heart size={24} className="mx-auto text-tea-red mb-2" />}
+          <p className="font-pixel text-xs text-tea-ink mb-2">{passed ? 'Module Complete!' : 'Almost there!'}</p>
+          <p className="font-pixel text-[9px] text-gray-500">{score} / {questions.length} correct</p>
+        </div>
+        {passed ? (
+          <PixelButton onClick={onPass} variant="primary" className="w-full">Continue</PixelButton>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <PixelButton onClick={onRetry} variant="secondary" className="w-full">Review Lesson</PixelButton>
+            <PixelButton onClick={() => { setCurrentIdx(0); setScore(0); setSelected(null); setDone(false); }} variant="primary" className="w-full">Try Quiz Again</PixelButton>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <p className="font-pixel text-[8px] text-gray-400 text-center mb-2">Quiz: {currentIdx + 1} / {questions.length}</p>
+      <div className="pixel-border p-3 bg-white mb-3">
+        <p className="font-pixel text-[9px] text-tea-ink leading-relaxed">{q.prompt}</p>
+      </div>
+      <div className="grid grid-cols-1 gap-2 mb-3">
+        {q.choices.map((choice, i) => (
+          <button key={i} onClick={() => handleAnswer(i)}
+            className={`pixel-border p-2 font-pixel text-[8px] text-left cursor-pointer transition-all ${selected === null ? 'bg-white hover:bg-tea-cream' : i === q.correctIndex ? 'bg-green-200' : selected === i ? 'bg-red-200' : 'bg-white opacity-50'}`}>
+            {selected !== null && i === q.correctIndex && <Check size={10} className="inline mr-1 text-green-600" />}
+            {selected !== null && selected === i && i !== q.correctIndex && <X size={10} className="inline mr-1 text-red-500" />}
+            {choice}
+          </button>
+        ))}
+      </div>
+      {selected !== null && (
+        <>
+          <div className="pixel-border-inset bg-tea-cream p-2 mb-2">
+            <p className="font-pixel text-[7px] text-tea-wood">{q.explanation}</p>
+          </div>
+          <PixelButton onClick={handleNext} variant="primary" className="w-full">
+            {currentIdx + 1 < questions.length ? 'Next Question' : 'See Results'}
+          </PixelButton>
+        </>
+      )}
+    </div>
+  );
+}
+
+function TeaLearning({ onBack }) {
+  const [activeModule, setActiveModule] = useState(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [inQuiz, setInQuiz] = useState(false);
+  const [stepCompleted, setStepCompleted] = useState(false);
+  const [petBounce, setPetBounce] = useState(false);
+  const [completedModules, setCompletedModules] = useState(() => {
+    const saved = loadSave();
+    return Array.isArray(saved?.completedModules) ? saved.completedModules : [];
+  });
+
+  useEffect(() => { writeSave({ completedModules }); }, [completedModules]);
+
+  const doBounce = useCallback(() => {
+    setPetBounce(true);
+    setTimeout(() => setPetBounce(false), 600);
+  }, []);
+
+  const isUnlocked = (mod) => mod.requiredModules.every(req => completedModules.includes(req));
+
+  const handleModuleComplete = () => {
+    const mod = LESSON_DATA.find(m => m.id === activeModule);
+    if (mod && !completedModules.includes(mod.id)) {
+      setCompletedModules(prev => [...prev, mod.id]);
+    }
+    setActiveModule(null);
+    setCurrentStep(0);
+    setInQuiz(false);
+    setStepCompleted(false);
+  };
+
+  const handleRetry = () => {
+    setCurrentStep(0);
+    setInQuiz(false);
+    setStepCompleted(false);
+  };
+
+  if (!activeModule) {
+    return (
+      <div className="min-h-screen bg-tea-cream p-4">
+        <div className="max-w-lg mx-auto">
+          <button onClick={onBack} className="flex items-center gap-1 font-pixel text-[10px] text-tea-wood mb-4 cursor-pointer hover:text-tea-red">
+            <ArrowLeft size={14} /> Back
+          </button>
+          <h2 className="font-pixel text-sm text-tea-red text-center mb-2">Tea Academy</h2>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <EmmaCharacter scale={2} />
+            <TeaPet scale={2} />
+          </div>
+          <SpeechBubble message={completedModules.length === 0 ? "Welcome to the Tea Academy! Let's start with the basics — tap a module to begin learning!" : completedModules.length === LESSON_DATA.length ? "You've completed all the modules! You're a true Tea Master!" : "Great progress! Keep learning to prepare for the Tea Quiz!"} />
+          <ProgressBar current={completedModules.length} total={LESSON_DATA.length} label="Modules" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+            {LESSON_DATA.map((mod) => {
+              const unlocked = isUnlocked(mod);
+              const completed = completedModules.includes(mod.id);
+              return (
+                <div key={mod.id} onClick={() => unlocked && setActiveModule(mod.id)}
+                  className={`pixel-border p-4 transition-all ${!unlocked ? 'bg-gray-200 opacity-60' : completed ? 'bg-green-50 cursor-pointer hover:bg-green-100' : 'bg-white cursor-pointer hover:bg-tea-cream'}`}>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="font-pixel text-[10px] text-tea-ink">{mod.title}</p>
+                    {completed ? <Check size={14} className="text-green-600" /> : !unlocked ? <Lock size={14} className="text-gray-400" /> : <ChevronRight size={14} className="text-tea-gold" />}
+                  </div>
+                  <p className="font-pixel text-[7px] text-gray-500">{mod.description}</p>
+                  {!unlocked && <p className="font-pixel text-[6px] text-gray-400 mt-1">Complete prerequisites first</p>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const mod = LESSON_DATA.find(m => m.id === activeModule);
+  const totalSteps = mod.steps.length + 1;
+
+  if (inQuiz) {
+    return (
+      <div className="min-h-screen bg-tea-cream p-4">
+        <div className="max-w-lg mx-auto">
+          <button onClick={() => { setActiveModule(null); setCurrentStep(0); setInQuiz(false); setStepCompleted(false); }}
+            className="flex items-center gap-1 font-pixel text-[10px] text-tea-wood mb-4 cursor-pointer hover:text-tea-red">
+            <ArrowLeft size={14} /> Back to Academy
+          </button>
+          <h2 className="font-pixel text-xs text-tea-red text-center mb-1">{mod.title}</h2>
+          <StepIndicator current={totalSteps - 1} total={totalSteps} />
+          <LessonQuiz questions={mod.quiz} onPass={handleModuleComplete} onRetry={handleRetry} />
+        </div>
+      </div>
+    );
+  }
+
+  const step = mod.steps[currentStep];
+
+  const handleStepComplete = () => setStepCompleted(true);
+
+  const handleNext = () => {
+    if (currentStep + 1 < mod.steps.length) {
+      setCurrentStep(prev => prev + 1);
+      setStepCompleted(false);
+    } else {
+      setInQuiz(true);
+      setStepCompleted(false);
+    }
+  };
+
+  const renderInteractive = () => {
+    const key = `${activeModule}-${currentStep}`;
+    switch (step.type) {
+      case 'tapReveal': return <TapRevealCards key={key} config={step.config} onComplete={handleStepComplete} onBounce={doBounce} />;
+      case 'sortExercise': return <SortExercise key={key} config={step.config} onComplete={handleStepComplete} onBounce={doBounce} />;
+      case 'matchPairs': return <MatchPairs key={key} config={step.config} onComplete={handleStepComplete} onBounce={doBounce} />;
+      case 'fillInBlank': return <FillInBlank key={key} config={step.config} onComplete={handleStepComplete} onBounce={doBounce} />;
+      case 'narrative': return null;
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-tea-cream p-4">
+      <div className="max-w-lg mx-auto">
+        <button onClick={() => { setActiveModule(null); setCurrentStep(0); setStepCompleted(false); }}
+          className="flex items-center gap-1 font-pixel text-[10px] text-tea-wood mb-4 cursor-pointer hover:text-tea-red">
+          <ArrowLeft size={14} /> Back to Academy
+        </button>
+        <h2 className="font-pixel text-xs text-tea-red text-center mb-1">{mod.title}</h2>
+        <StepIndicator current={currentStep} total={totalSteps} />
+
+        <div className="flex items-start gap-2 mb-4">
+          <div className="flex-shrink-0">
+            <EmmaCharacter scale={2} />
+          </div>
+          <SpeechBubbleInline text={step.emmaText} />
+        </div>
+
+        <div className="mb-4">
+          {renderInteractive()}
+        </div>
+
+        <div className="flex items-center justify-between">
+          <TeaPet scale={2} bounce={petBounce} />
+          {(stepCompleted || step.type === 'narrative') && (
+            <PixelButton onClick={handleNext} variant="primary">
+              {currentStep + 1 < mod.steps.length ? 'Next' : 'Start Quiz'} <ChevronRight size={12} className="inline" />
+            </PixelButton>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════
 // SECTION 4: TITLE SCREEN
 // ═══════════════════════════════════════════════════════════
 
@@ -542,6 +1299,9 @@ function TitleScreen({ onNavigate }) {
           </PixelButton>
           <PixelButton onClick={() => onNavigate('brewing')} variant="primary" className="w-full">
             <span className="flex items-center justify-center gap-2"><Flame size={14} /> Brewing Simulator</span>
+          </PixelButton>
+          <PixelButton onClick={() => onNavigate('learn')} variant="secondary" className="w-full">
+            <span className="flex items-center justify-center gap-2"><Heart size={14} /> Tea Academy</span>
           </PixelButton>
         </div>
 
@@ -1634,6 +2394,8 @@ export default function App() {
       );
     case 'brewing':
       return <BrewingSimulator onBack={handleBack} />;
+    case 'learn':
+      return <TeaLearning onBack={handleBack} />;
     default:
       return <TitleScreen onNavigate={handleNavigate} />;
   }
