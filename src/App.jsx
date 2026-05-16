@@ -821,14 +821,17 @@ function ProgressBar({ current, total, label }) {
 
 function TapRevealCards({ config, onComplete, onBounce }) {
   const [revealed, setRevealed] = useState({});
-  const allRevealed = config.cards.every((_, i) => revealed[i]);
+  const [seen, setSeen] = useState({});
+  const allSeen = config.cards.every((_, i) => seen[i]);
 
-  useEffect(() => { if (allRevealed) onComplete(); }, [allRevealed]);
+  useEffect(() => { if (allSeen) onComplete(); }, [allSeen]);
 
   const handleTap = (i) => {
-    if (revealed[i]) return;
-    setRevealed(prev => ({ ...prev, [i]: true }));
-    onBounce();
+    if (!seen[i]) {
+      setSeen(prev => ({ ...prev, [i]: true }));
+      onBounce();
+    }
+    setRevealed(prev => ({ ...prev, [i]: !prev[i] }));
   };
 
   return (
@@ -840,7 +843,7 @@ function TapRevealCards({ config, onComplete, onBounce }) {
             <div className="text-center">
               {card.category && <span className={`inline-block px-2 py-0.5 rounded text-[7px] font-pixel mb-1 ${CATEGORY_COLORS[card.category] || 'bg-gray-300'}`}>{card.category}</span>}
               <p className="font-pixel text-[9px] text-tea-ink">{card.front}</p>
-              <p className="font-pixel text-[7px] text-gray-400 mt-1">tap to reveal</p>
+              <p className="font-pixel text-[7px] text-gray-400 mt-1">{seen[i] ? 'tap to flip' : 'tap to reveal'}</p>
             </div>
           ) : (
             <div className="text-center">
