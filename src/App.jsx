@@ -333,6 +333,10 @@ const TEXTS = {
     overSteeped: "Over-steeped! The tea will be more bitter than intended.",
     perfectTiming: "Perfect timing! The tea master emerges!",
     fairnessMsg: "The fairness cup ensures every guest gets the same taste.",
+    levelBeginner: "Beginner",
+    levelApprentice: "Apprentice",
+    levelTeaGuide: "Tea Guide",
+    levelTeaMaster: "Tea Master",
   },
   nl: {
     appTitle: "Emma's Theehuis",
@@ -436,6 +440,10 @@ const TEXTS = {
     overSteeped: "Te lang getrokken! De thee zal bitterder zijn dan bedoeld.",
     perfectTiming: "Perfecte timing! De theemeester verschijnt!",
     fairnessMsg: "Het gelijkmatigheidskopje zorgt ervoor dat elke gast dezelfde smaak krijgt.",
+    levelBeginner: "Beginner",
+    levelApprentice: "Leerling",
+    levelTeaGuide: "Thee Gids",
+    levelTeaMaster: "Thee Meester",
   }
 };
 
@@ -1713,6 +1721,10 @@ function generateQuestions(count = 10, expertMode = false) {
   const expertTypes = ['terroir', 'oxidation', 'processingDetail', 'terroirEffect'];
   const types = expertMode ? [...normalTypes, ...expertTypes] : normalTypes;
 
+  const catNl = { Green: 'Groen', Oolong: 'Oolong', Black: 'Zwart', White: 'Wit', 'Pu-erh': 'Pu-erh', Yellow: 'Geel', Scented: 'Geparfumeerd' };
+  const vesselNl = { 'Gaiwan': 'Gaiwan', 'Yixing teapot': 'Yixing theepot', 'Glass cup': 'Glazen kopje' };
+  const tf = (obj, field) => obj[field + '_nl'] || obj[field];
+
   for (let i = 0; i < count; i++) {
     const type = types[Math.floor(Math.random() * types.length)];
     const tea = TEA_DATA[Math.floor(Math.random() * TEA_DATA.length)];
@@ -1722,12 +1734,16 @@ function generateQuestions(count = 10, expertMode = false) {
       const wrongCats = allCats.filter(c => c !== tea.category);
       const shuffledWrong = wrongCats.sort(() => Math.random() - 0.5).slice(0, 3);
       const choices = [...shuffledWrong, tea.category].sort(() => Math.random() - 0.5);
+      const choices_nl = choices.map(c => catNl[c] || c);
       questions.push({
         type, tea,
         prompt: `What type of tea is ${tea.name}?`,
+        prompt_nl: `Wat voor soort thee is ${tea.name}?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(tea.category),
         explanation: `${tea.name} (${tea.chinese}) is a ${tea.category} tea from ${tea.region}.`,
+        explanation_nl: `${tea.name} (${tea.chinese}) is een ${catNl[tea.category] || tea.category} thee uit ${tea.region}.`,
       });
     } else if (type === 'temperature') {
       const offsets = [-15, -10, -5, 5, 10, 15].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -1735,12 +1751,17 @@ function generateQuestions(count = 10, expertMode = false) {
       const choices = [...wrongTemps, tea.temp]
         .map(t => `${t}°C`)
         .sort(() => Math.random() - 0.5);
+      const tempWord = tea.temp >= 95 ? 'hotter' : tea.temp >= 85 ? 'moderate' : 'cooler';
+      const tempWordNl = tea.temp >= 95 ? 'heter' : tea.temp >= 85 ? 'gematigd' : 'koeler';
       questions.push({
         type, tea,
         prompt: `What's the ideal brewing temperature for ${tea.name}?`,
+        prompt_nl: `Wat is de ideale zettemperatuur voor ${tea.name}?`,
         choices,
+        choices_nl: choices,
         correctIndex: choices.indexOf(`${tea.temp}°C`),
-        explanation: `${tea.name} brews best at ${tea.temp}°C. ${tea.category} teas generally need ${tea.temp >= 95 ? 'hotter' : tea.temp >= 85 ? 'moderate' : 'cooler'} water.`,
+        explanation: `${tea.name} brews best at ${tea.temp}°C. ${tea.category} teas generally need ${tempWord} water.`,
+        explanation_nl: `${tea.name} zet het beste bij ${tea.temp}°C. ${catNl[tea.category] || tea.category} theeën hebben over het algemeen ${tempWordNl} water nodig.`,
       });
     } else if (type === 'region') {
       const wrongTeas = TEA_DATA.filter(t => t.id !== tea.id).sort(() => Math.random() - 0.5).slice(0, 3);
@@ -1748,9 +1769,12 @@ function generateQuestions(count = 10, expertMode = false) {
       questions.push({
         type, tea,
         prompt: `Which tea comes from ${tea.region}?`,
+        prompt_nl: `Welke thee komt uit ${tea.region}?`,
         choices,
+        choices_nl: choices,
         correctIndex: choices.indexOf(tea.name),
         explanation: `${tea.name} (${tea.chinese}) comes from ${tea.region}. It's known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
+        explanation_nl: `${tea.name} (${tea.chinese}) komt uit ${tea.region}. Het staat bekend om zijn ${(tea.flavorNotes_nl || tea.flavorNotes).join(', ')} smaaknotities.`,
       });
     } else if (type === 'leafAmount') {
       const allGrams = [...new Set(TEA_DATA.map(t => t.gramsper100ml))];
@@ -1758,57 +1782,88 @@ function generateQuestions(count = 10, expertMode = false) {
       const choices = [...wrongGrams, tea.gramsper100ml]
         .map(g => `${g}g per 100ml`)
         .sort(() => Math.random() - 0.5);
+      const moreLeaf = tea.gramsper100ml >= 7;
       questions.push({
         type, tea,
         prompt: `How many grams per 100ml is recommended for ${tea.name}?`,
+        prompt_nl: `Hoeveel gram per 100ml wordt aanbevolen voor ${tea.name}?`,
         choices,
+        choices_nl: choices,
         correctIndex: choices.indexOf(`${tea.gramsper100ml}g per 100ml`),
-        explanation: `${tea.name} uses ${tea.gramsper100ml}g per 100ml. ${tea.gramsper100ml >= 7 ? 'Dense rolled teas like oolongs and pu-erh use more leaf.' : 'Delicate teas use less leaf to avoid bitterness.'}`,
+        explanation: `${tea.name} uses ${tea.gramsper100ml}g per 100ml. ${moreLeaf ? 'Dense rolled teas like oolongs and pu-erh use more leaf.' : 'Delicate teas use less leaf to avoid bitterness.'}`,
+        explanation_nl: `${tea.name} gebruikt ${tea.gramsper100ml}g per 100ml. ${moreLeaf ? 'Dicht gerolde theeën zoals oolongs en pu-erh gebruiken meer blad.' : 'Delicate theeën gebruiken minder blad om bitterheid te voorkomen.'}`,
       });
     } else if (type === 'processing') {
       const wrongProcessing = TEA_DATA.filter(t => t.processing !== tea.processing)
-        .sort(() => Math.random() - 0.5).slice(0, 3).map(t => t.processing);
-      const choices = [...wrongProcessing, tea.processing].sort(() => Math.random() - 0.5);
+        .sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...wrongProcessing.map(t => t.processing), tea.processing].sort(() => Math.random() - 0.5);
+      const choices_nl = choices.map(c => { const match = TEA_DATA.find(t => t.processing === c); return match ? tf(match, 'processing') : c; });
       questions.push({
         type, tea,
         prompt: `What processing method is used to make ${tea.name}?`,
+        prompt_nl: `Welke verwerkingsmethode wordt gebruikt om ${tea.name} te maken?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(tea.processing),
         explanation: `${tea.name} is made by: ${tea.processing}. This is characteristic of ${tea.category} teas.`,
+        explanation_nl: `${tea.name} wordt gemaakt door: ${tf(tea, 'processing')}. Dit is kenmerkend voor ${catNl[tea.category] || tea.category} theeën.`,
       });
     } else if (type === 'vessel') {
       const vessels = ['Gaiwan', 'Yixing teapot', 'Glass cup'];
       const wrongVessels = vessels.filter(v => v !== tea.brewingVessel);
       const choices = [...wrongVessels, tea.brewingVessel].sort(() => Math.random() - 0.5);
+      const choices_nl = choices.map(v => vesselNl[v] || v);
+      const vesselExplNl = tea.brewingVessel === 'Glass cup' ? 'Glas laat je de bladvorm en kleur waarderen.' : tea.brewingVessel === 'Yixing teapot' ? 'Yixing klei absorbeert smaak en versterkt krachtige theeën.' : 'De gaiwan is veelzijdig en geweldig voor de meeste theeën.';
       questions.push({
         type, tea,
         prompt: `What's the best vessel for brewing ${tea.name}?`,
+        prompt_nl: `Wat is het beste vaatwerk om ${tea.name} te zetten?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(tea.brewingVessel),
         explanation: `${tea.name} is best brewed in a ${tea.brewingVessel}. ${tea.brewingVessel === 'Glass cup' ? 'Glass lets you appreciate the leaf shape and color.' : tea.brewingVessel === 'Yixing teapot' ? 'Yixing clay absorbs flavor and enhances bold teas.' : 'The gaiwan is versatile and great for most teas.'}`,
+        explanation_nl: `${tea.name} wordt het best gezet in een ${vesselNl[tea.brewingVessel] || tea.brewingVessel}. ${vesselExplNl}`,
       });
     } else if (type === 'flavorMatch') {
-      const correctFlavor = tea.flavorNotes[Math.floor(Math.random() * tea.flavorNotes.length)];
-      const allFlavors = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
-      const wrongFlavors = [...new Set(allFlavors)].sort(() => Math.random() - 0.5).slice(0, 3);
-      const choices = [...wrongFlavors, correctFlavor].sort(() => Math.random() - 0.5);
+      const flavorIdx = Math.floor(Math.random() * tea.flavorNotes.length);
+      const correctFlavor = tea.flavorNotes[flavorIdx];
+      const correctFlavorNl = (tea.flavorNotes_nl || tea.flavorNotes)[flavorIdx];
+      const allFlavorsEn = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
+      const allFlavorsNl = TEA_DATA.flatMap(t => t.flavorNotes_nl || t.flavorNotes).filter(f => !(tea.flavorNotes_nl || tea.flavorNotes).includes(f));
+      const wrongIndices = [];
+      const uniqueEn = [...new Set(allFlavorsEn)];
+      const shuffleIdx = Array.from({length: uniqueEn.length}, (_, i) => i).sort(() => Math.random() - 0.5).slice(0, 3);
+      const wrongFlavors = shuffleIdx.map(i => uniqueEn[i]);
+      const wrongFlavorsNl = shuffleIdx.map(i => [...new Set(allFlavorsNl)][i] || uniqueEn[i]);
+      const combined = [...wrongFlavors.map((f, i) => ({en: f, nl: wrongFlavorsNl[i]})), {en: correctFlavor, nl: correctFlavorNl}];
+      const shuffled = combined.sort(() => Math.random() - 0.5);
+      const choices = shuffled.map(c => c.en);
+      const choices_nl = shuffled.map(c => c.nl);
       questions.push({
         type, tea,
         prompt: `Which flavor note is associated with ${tea.name}?`,
+        prompt_nl: `Welke smaaknotitie hoort bij ${tea.name}?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(correctFlavor),
         explanation: `${tea.name} is known for its ${tea.flavorNotes.join(', ')} flavor notes.`,
+        explanation_nl: `${tea.name} staat bekend om zijn ${(tea.flavorNotes_nl || tea.flavorNotes).join(', ')} smaaknotities.`,
       });
     } else if (type === 'terroir') {
-      const wrongTerroirs = TEA_DATA.filter(t => t.id !== tea.id)
-        .sort(() => Math.random() - 0.5).slice(0, 3).map(t => t.terroir);
-      const choices = [...wrongTerroirs, tea.terroir].sort(() => Math.random() - 0.5);
+      const wrongTeas = TEA_DATA.filter(t => t.id !== tea.id).sort(() => Math.random() - 0.5).slice(0, 3);
+      const combined = [...wrongTeas.map(t => ({en: t.terroir, nl: tf(t, 'terroir')})), {en: tea.terroir, nl: tf(tea, 'terroir')}];
+      const shuffled = combined.sort(() => Math.random() - 0.5);
+      const choices = shuffled.map(c => c.en);
+      const choices_nl = shuffled.map(c => c.nl);
       questions.push({
         type, tea,
         prompt: `What terroir defines ${tea.name}?`,
+        prompt_nl: `Welk terroir kenmerkt ${tea.name}?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(tea.terroir),
         explanation: `${tea.name} grows in: ${tea.terroir}. This terroir contributes to its ${tea.flavorNotes.join(', ')} character.`,
+        explanation_nl: `${tea.name} groeit in: ${tf(tea, 'terroir')}. Dit terroir draagt bij aan zijn ${(tea.flavorNotes_nl || tea.flavorNotes).join(', ')} karakter.`,
       });
     } else if (type === 'oxidation') {
       const allOx = [...new Set(TEA_DATA.map(t => t.oxidation))];
@@ -1817,9 +1872,12 @@ function generateQuestions(count = 10, expertMode = false) {
       questions.push({
         type, tea,
         prompt: `What is the oxidation level of ${tea.name}?`,
+        prompt_nl: `Wat is het oxidatieniveau van ${tea.name}?`,
         choices,
+        choices_nl: choices,
         correctIndex: choices.indexOf(tea.oxidation),
         explanation: `${tea.name} is ${tea.oxidation}. ${tea.category} teas are characterized by this level of oxidation.`,
+        explanation_nl: `${tea.name} is ${tea.oxidation}. ${catNl[tea.category] || tea.category} theeën worden gekenmerkt door dit oxidatieniveau.`,
       });
     } else if (type === 'processingDetail') {
       const wrongTeas = TEA_DATA.filter(t => t.id !== tea.id).sort(() => Math.random() - 0.5).slice(0, 3);
@@ -1827,21 +1885,36 @@ function generateQuestions(count = 10, expertMode = false) {
       questions.push({
         type, tea,
         prompt: `Which tea is made by: "${tea.processing}"?`,
+        prompt_nl: `Welke thee wordt gemaakt door: "${tf(tea, 'processing')}"?`,
         choices,
+        choices_nl: choices,
         correctIndex: choices.indexOf(tea.name),
         explanation: `${tea.name} is made by: ${tea.processing}. This ${tea.category} tea comes from ${tea.region}.`,
+        explanation_nl: `${tea.name} wordt gemaakt door: ${tf(tea, 'processing')}. Deze ${catNl[tea.category] || tea.category} thee komt uit ${tea.region}.`,
       });
     } else if (type === 'terroirEffect') {
-      const correctFlavor = tea.flavorNotes[Math.floor(Math.random() * tea.flavorNotes.length)];
-      const allFlavors = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
-      const wrongFlavors = [...new Set(allFlavors)].sort(() => Math.random() - 0.5).slice(0, 3);
-      const choices = [...wrongFlavors, correctFlavor].sort(() => Math.random() - 0.5);
+      const flavorIdx = Math.floor(Math.random() * tea.flavorNotes.length);
+      const correctFlavor = tea.flavorNotes[flavorIdx];
+      const correctFlavorNl = (tea.flavorNotes_nl || tea.flavorNotes)[flavorIdx];
+      const allFlavorsEn = TEA_DATA.flatMap(t => t.flavorNotes).filter(f => !tea.flavorNotes.includes(f));
+      const allFlavorsNl = TEA_DATA.flatMap(t => t.flavorNotes_nl || t.flavorNotes).filter(f => !(tea.flavorNotes_nl || tea.flavorNotes).includes(f));
+      const uniqueEn = [...new Set(allFlavorsEn)];
+      const shuffleIdx = Array.from({length: uniqueEn.length}, (_, i) => i).sort(() => Math.random() - 0.5).slice(0, 3);
+      const wrongFlavors = shuffleIdx.map(i => uniqueEn[i]);
+      const wrongFlavorsNl = shuffleIdx.map(i => [...new Set(allFlavorsNl)][i] || uniqueEn[i]);
+      const combined = [...wrongFlavors.map((f, i) => ({en: f, nl: wrongFlavorsNl[i]})), {en: correctFlavor, nl: correctFlavorNl}];
+      const shuffled = combined.sort(() => Math.random() - 0.5);
+      const choices = shuffled.map(c => c.en);
+      const choices_nl = shuffled.map(c => c.nl);
       questions.push({
         type, tea,
         prompt: `Which flavor of ${tea.name} is shaped by its terroir in ${tea.region}?`,
+        prompt_nl: `Welke smaak van ${tea.name} wordt gevormd door het terroir in ${tea.region}?`,
         choices,
+        choices_nl,
         correctIndex: choices.indexOf(correctFlavor),
         explanation: `${tea.terroir} — this terroir gives ${tea.name} its distinctive ${correctFlavor} character.`,
+        explanation_nl: `${tf(tea, 'terroir')} — dit terroir geeft ${tea.name} zijn kenmerkende ${correctFlavorNl} karakter.`,
       });
     }
   }
@@ -1854,6 +1927,8 @@ function getLevel(score) {
   if (score >= 10) return 'Apprentice';
   return 'Beginner';
 }
+
+const LEVEL_TEXT_KEYS = { 'Beginner': 'levelBeginner', 'Apprentice': 'levelApprentice', 'Tea Guide': 'levelTeaGuide', 'Tea Master': 'levelTeaMaster' };
 
 function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }) {
   const t = useCallback((key) => TEXTS[lang]?.[key] || TEXTS.en[key] || key, [lang]);
@@ -1914,6 +1989,7 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
   }, []);
 
   const question = questions[currentIndex];
+  const qf = useCallback((q, field) => lang === 'nl' && q[field + '_nl'] ? q[field + '_nl'] : q[field], [lang]);
 
   const handleAnswer = useCallback((choiceIndex) => {
     if (showResult) return;
@@ -1921,6 +1997,7 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
     setShowResult(true);
 
     const isCorrect = choiceIndex === question.correctIndex;
+    const explanation = lang === 'nl' && question.explanation_nl ? question.explanation_nl : question.explanation;
 
     if (isCorrect) {
       const newScore = score + 1;
@@ -1950,17 +2027,17 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
       } else {
         setEmmaMsg(
           msgs.correct[Math.floor(Math.random() * msgs.correct.length)] +
-          ' ' + question.explanation
+          ' ' + explanation
         );
       }
     } else {
       setStreak(0);
       setEmmaMsg(
         msgs.wrong[Math.floor(Math.random() * msgs.wrong.length)] +
-        ' ' + question.explanation
+        ' ' + explanation
       );
     }
-  }, [showResult, question, score, streak, totalCorrect, bestStreak, discoveredTeas, onDiscoverTea, prevLevel]);
+  }, [showResult, question, score, streak, totalCorrect, bestStreak, discoveredTeas, onDiscoverTea, prevLevel, lang]);
 
   const handleNext = () => {
     if (currentIndex + 1 >= questions.length) {
@@ -1996,7 +2073,7 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
               <p className="font-pixel text-[10px]">{t('score')}: {score} / {questions.length}</p>
               <p className="font-pixel text-[10px]">{t('bestStreak')}: {bestStreak}</p>
               <p className="font-pixel text-[10px]">{t('totalCorrect')}: {totalCorrect}</p>
-              <p className="font-pixel text-xs text-tea-jade mt-2">{t('rank')}: {level}</p>
+              <p className="font-pixel text-xs text-tea-jade mt-2">{t('rank')}: {t(LEVEL_TEXT_KEYS[level] || 'levelBeginner')}</p>
             </div>
             <div className="flex items-center justify-center gap-2 mb-4">
               <EmmaCharacter scale={2} />
@@ -2037,7 +2114,7 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
         <ProgressBar current={currentIndex + 1} total={questions.length} label={`${t('question')} ${currentIndex + 1}`} />
 
         <div className="mt-4 mb-2 flex justify-between items-center">
-          <span className="font-pixel text-[8px] text-gray-500">{t('level')}: {getLevel(totalCorrect)}</span>
+          <span className="font-pixel text-[8px] text-gray-500">{t('level')}: {t(LEVEL_TEXT_KEYS[getLevel(totalCorrect)] || 'levelBeginner')}</span>
           <button
             onClick={handleToggleExpert}
             className={`font-pixel text-[8px] px-2 py-1 pixel-border cursor-pointer transition-colors ${
@@ -2050,11 +2127,11 @@ function TeaQuiz({ onBack, discoveredTeas, onDiscoverTea, lang = 'en', setLang }
         </div>
 
         <PixelCard className="mb-4">
-          <p className="font-pixel text-[10px] sm:text-xs text-tea-ink leading-relaxed">{question.prompt}</p>
+          <p className="font-pixel text-[10px] sm:text-xs text-tea-ink leading-relaxed">{qf(question, 'prompt')}</p>
         </PixelCard>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-          {question.choices.map((choice, i) => {
+          {(lang === 'nl' && question.choices_nl ? question.choices_nl : question.choices).map((choice, i) => {
             let btnClass = 'w-full text-left pixel-border font-pixel text-[10px] px-3 py-2.5 transition-all';
             if (showResult) {
               if (i === question.correctIndex) {
@@ -2370,7 +2447,9 @@ function BrewingSimulator({ onBack, lang = 'en', setLang }) {
     setScores({ temp: false, grams: false, steep: false });
     setRinsePhase(0);
     setPourAnim(false);
-    setEmmaMsg(`Great choice! ${tea.name} (${tea.chinese}) — a fine ${tea.category} tea from ${tea.region}. Let's brew it Gong Fu style!`);
+    setEmmaMsg(lang === 'nl'
+      ? `Goede keuze! ${tea.name} (${tea.chinese}) — een fijne ${tea.category} thee uit ${tea.region}. Laten we het Gong Fu stijl zetten!`
+      : `Great choice! ${tea.name} (${tea.chinese}) — a fine ${tea.category} tea from ${tea.region}. Let's brew it Gong Fu style!`);
   };
 
   const handleConfirmTemp = () => {
@@ -2399,7 +2478,9 @@ function BrewingSimulator({ onBack, lang = 'en', setLang }) {
     if (correct) {
       setEmmaMsg(t('rightAmount'));
     } else {
-      setEmmaMsg(`Hmm, ${selectedTea.name} works best with ${selectedTea.gramsper100ml}g per 100ml.`);
+      setEmmaMsg(lang === 'nl'
+        ? `Hmm, ${selectedTea.name} werkt het best met ${selectedTea.gramsper100ml}g per 100ml.`
+        : `Hmm, ${selectedTea.name} works best with ${selectedTea.gramsper100ml}g per 100ml.`);
     }
     setStep(4);
   };
@@ -2459,7 +2540,9 @@ function BrewingSimulator({ onBack, lang = 'en', setLang }) {
     setRinsePhase(0);
     setPourAnim(false);
     setPetBounce(false);
-    setEmmaMsg(`Let's brew ${selectedTea.name} again! This time with more precision.`);
+    setEmmaMsg(lang === 'nl'
+      ? `Laten we ${selectedTea.name} opnieuw zetten! Dit keer met meer precisie.`
+      : `Let's brew ${selectedTea.name} again! This time with more precision.`);
   };
 
   const handleTryDifferent = () => {
